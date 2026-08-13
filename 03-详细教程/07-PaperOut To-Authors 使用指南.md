@@ -1,3 +1,4 @@
+{>>这一页**完全没有 frontmatter**，是全手册唯一一篇。没有 `title` / `description` / `order`，章节导览排序和摘要都拿不到，建议补齐<<}
 # PaperOut To-Authors 使用指南
 
 > [!abstract] **PaperOut 能帮你做什么**
@@ -9,7 +10,7 @@
 > 左侧边栏的 **PaperOut 图标**，或命令面板搜索 `PaperOut`。
 
 > [!faq]- 想了解它在整个套件里的定位与路线图？
-> 见同目录 [[07-PaperOut 协作与使用场景]]。本文只讲**动手操作**。
+> 见同目录 {~~[[07-PaperOut 协作与使用场景]]~>[PaperOut 协作与使用场景](07-PaperOut%20协作与使用场景.md)~~}{>>改成相对链接，和手册其余部分一致；wikilink 在将来生成静态站点时会断<<}。本文只讲**动手操作**。
 
 ---
 
@@ -72,7 +73,8 @@
 > [!danger] 四份草稿用四种配方，各需对应资产
 > | 草稿 | 配方 | 需要安装 |
 > |---|---|---|
-> | Main Manuscript / Supplementary | PaperBell Manuscript | `PaperBell 手稿` 套件 |
+> | Main Manuscript {~~/ Supplementary~>~~} | PaperBell Manuscript | `PaperBell 手稿` 套件 |
+> {++| Supplementary | PaperBell Supplementary | `补充材料` 套件 |++}{>>这两份草稿用的不是同一个 workflow：示例库里 `PaperBell Supplementary` 是独立的一条，比 `PaperBell Manuscript` 多一个 `supplementary-info` 步骤，导出文件名也不同（`{acronym}_SI_{date}` 对 `{acronym}_{date}`）。合并写会让读者以为装了手稿套件就能编补充材料。顺便：示例库里一共 6 条 workflow，除这四条外还有 `Default Workflow` 和 `Quick Export`<<}
 > | Response Letter | PaperBell Response Letter | `审稿回复信` 套件 |
 > | Cover Letter | PaperBell Cover Letter | `投稿信` 套件 |
 > | 引用样式（所有草稿） | — | 对应 **CSL**（如 `Nature 样式`） |
@@ -90,7 +92,7 @@ brew install pandoc-crossref     # pandoc-crossref
 ```
 
 > [!faq]- 资产落在哪？
-> 工具链资产在同一页「浏览资产市场」下载，默认落在库内 **`PaperBell/pandoc/`**。
+> 工具链资产在同一页「浏览资产市场」下载，默认落在库内 {~~**`PaperBell/pandoc/`**~>**`00 - Obsidian/pandoc/`**~~}{>>示例库 `longform-paperbell/data.json` 里 `pandocAssetsFolder` 就是 `00 - Obsidian/pandoc`，实际目录下有 `defaults/`（4 个 yaml）、`filters/`（19 个 lua）、`templates/`、`csl/`。而且这一页自己前面和 02-快速上手/03-下载并打开PaperBell.md:112 都写的是 `00 - Obsidian/pandoc`，只有这一处不一样<<}。
 > 👉 你在那里的**手动修改不会被插件更新覆盖**。
 
 ---
@@ -137,7 +139,7 @@ brew install pandoc-crossref     # pandoc-crossref
 > [!cite] 延伸阅读
 > - 资产仓库规范：插件仓库 `docs/ASSET_MARKETPLACE_SPEC.md`
 > - Pandoc 导出细节：`docs/PANDOC_EXPORT.md`
-> - 套件定位与路线图：[[07-PaperOut 协作与使用场景]]
+> - 套件定位与路线图：{~~[[07-PaperOut 协作与使用场景]]~>[PaperOut 协作与使用场景](07-PaperOut%20协作与使用场景.md)~~}
 
 ---
 

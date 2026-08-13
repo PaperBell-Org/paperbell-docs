@@ -8,6 +8,7 @@ longform: false
 concepts:
 project: PaperBell
 ---
+{>>这一页的 frontmatter 是**示例库**的笔记格式（`cate` / `banner` / `longform` / `project`），不是手册其他页用的文档格式（`title` / `description` / `status` / `order`）——看得出它是从 `50 - Outputs/Drafts/PaperBell 的使用场景.md` 直接搬过来的。影响有两个：一是章节导览里它没有 `title`/`order`，排序和标题都要靠文件名兜底；二是 `banner: 00 - Obsidian/img/讨论.jpg` 指向示例库里的图片，手册仓库里没有这个文件，横幅不会显示。同样情况的还有 `01-核心设计理念.md`、`02-是否适用于你.md`、`03-详细教程/06-概念卡使用场景.md`、`07-PaperOut 协作与使用场景.md`、`05-高级定制/02`、`03`、`06-FAQ与问题反馈/01`。建议统一换成文档格式<<}
 # PaperBell 的使用场景
 
 > [!abstract] 这份文档是什么
@@ -22,7 +23,7 @@ project: PaperBell
 > | 🔵 **设想中** | 写在路线图里，**还没做** |
 
 > [!tip] 配套阅读
-> 框架总纲 → [[CIMPO_学术生涯管理框架.md]]　·　导出操作 → [[07-PaperOut To-Authors 使用指南]]　·　套件协作与路线图 → [[07-PaperOut 协作与使用场景]]
+> 框架总纲 → {~~[[CIMPO_学术生涯管理框架.md]]~>[CIMPO 学术生涯管理框架](../03-详细教程/01-CIMPO-学术生涯管理框架.md)~~}　·　导出操作 → {~~[[07-PaperOut To-Authors 使用指南]]~>[PaperOut To-Authors 使用指南](../03-详细教程/07-PaperOut%20To-Authors%20使用指南.md)~~}　·　套件协作与路线图 → {~~[[07-PaperOut 协作与使用场景]]~>[PaperOut 协作与使用场景](../03-详细教程/07-PaperOut%20协作与使用场景.md)~~}{>>三个链接都改成了相对路径。第一个原本是**死链**——手册里没有 `CIMPO_学术生涯管理框架.md` 这个文件（那是示例库 `50 - Outputs/Drafts/` 里的草稿名），手册里的正确文件是 `03-详细教程/01-CIMPO-学术生涯管理框架.md`，连字符不是下划线。后两个 wikilink 在 Obsidian 里能靠全库同名解析打开，但手册其余部分一律用相对 Markdown 链接，将来要生成静态站点时 wikilink 会全部断掉<<}
 
 ---
 

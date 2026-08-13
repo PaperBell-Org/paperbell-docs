@@ -131,7 +131,7 @@ Scholar 模板会使用 Web Clipper Interpreter 处理不同网站上不统一�
 | `Daily notes` | 打开当天日记的命令 |
 | `Thino` | 日常视图或快速输入框 |
 | `QuickAdd: 添加学者` | 手动建立学者档案 |
-| `Extract Concepts` | Cards Wrangler 的概念提取入口；未配置 AI 时可以暂不执行 |
+| {~~`Extract Concepts`~>`Ingest current note`~~}{>>同 05-跑通第一个科研闭环.md：示例库的 Cards Wrangler 1.0.1 没有 `Extract Concepts` 这条命令，健康检查会直接失败。这里如果只想验证插件已注册，搜 `Cards Wrangler` 或 `Ingest` 更稳妥<<} | Cards Wrangler 的概念提取入口；未配置 AI 时可以暂不执行 |
 | `新建 PaperBell 论文项目` | PaperOut 的论文项目创建命令 |
 | `设置 Pandoc 导出` | PaperOut 的系统工具检查入口 |
 | `浏览 Pandoc 资产市场` | PaperOut 的配方、过滤器、模板和 CSL 下载入口 |

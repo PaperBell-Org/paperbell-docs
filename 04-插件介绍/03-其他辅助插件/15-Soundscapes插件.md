@@ -1,3 +1,4 @@
+{>>⚠️ 建议整页删除：Soundscapes 已经在示例库最新一次提交里被移除了（commit "remove Soundscapes plugin and clean up related files"），`.obsidian/plugins/` 下不再有它。你在 02-快速上手/01-开始之前.md:72 把「音乐」从体验增强插件清单里划掉，方向一致。04-插件介绍/index.md 里对应的那一行我已经标了删除。删页这个动作我没替你做<<}
 **【开源链接】**
 <https://github.com/andrewmcgivery/obsidian-soundscapes>
 

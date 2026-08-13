@@ -140,6 +140,7 @@ important: true
 ```text
 20 - Inputs/Zotero/2026_SongShuang_导出学术文档Latex版.md
 ```
+{>>这个示例文件名在示例库里不存在，`20 - Inputs/Zotero/` 下的演示文献是中文标题（如「CIMPO：一种以输出为导向的学术知识管理方法」「卡片盒笔记法与知识的涌现」）。读者对照库里看会找不到。我没有替换成库里的名字——因为这里想演示的是「作者_年份_标题」这种 citekey 风格的文件名，而示例库的演示笔记恰好不是这个风格，两边到底以哪个为准得你来定<<}
 
 ## 五、验收生成结果
 
@@ -167,10 +168,10 @@ ZotLit 只更换 `%%zt-managed%%` 区域内的正文。不要手工删除管理�
 | 现象                             | 先检查                                              |
 | ------------------------------ | ------------------------------------------------ |
 | 搜索不到新文献                        | ZotLit 数据库路径与 `Refresh index`                    |
-| 有元数据，但整个批注区不存在                 | `zotlit-note.liquid.md` 是否渲染 `content`           |
-| 有 `## Annotations` 但某些批注异常     | `zotlit-annotation.liquid.md` 及单条批注数据            |
+| 有元数据，但整个批注区不存在                 | {~~`zotlit-note.liquid.md`~>`zt-note.eta.md`~~} 是否渲染 `content`{>>⚠️ 模板文件名整体对不上：示例库 `00 - Obsidian/模板/` 下的 ZotLit 模板是 **`zt-*.eta.md`** 七个文件（`zt-note` `zt-field` `zt-annot` `zt-annots` `zt-cite` `zt-cite2` `zt-colored`），不是 `zotlit-*.liquid.md`——既不是这个前缀，也不是 liquid 后缀（ZotLit 2.x 用的是 Eta 模板引擎）。读者按 `zotlit-` 去模板目录找会一个都找不到。同样的错误在 04-插件介绍/02-.../05-ZotLit.md 和 05-高级定制/01-ZotLit模板自定义.md 里也有<<}           |
+| 有 `## Annotations` 但某些批注异常     | {~~`zotlit-annotation.liquid.md`~>`zt-annot.eta.md`（单条）/ `zt-annots.eta.md`（按高亮颜色分组）~~} 及单条批注数据            |
 | Frontmatter 缺失                 | JavaScript Templates 开关与 Managed Frontmatter 表达式 |
-| 文件名是标题而非 citekey               | `zotlit-filename.liquid.md` 的回退顺序                |
+| 文件名是标题而非 citekey               | {~~`zotlit-filename.liquid.md` 的回退顺序~>ZotLit 设置里的文件名模板~~}{>>模板目录里**没有**文件名模板这个文件（七个 `zt-*.eta.md` 里不含 filename），ZotLit 2.x 的文件名规则应该存在插件设置里而不是模板文件。这条排错指引会让读者去找一个不存在的文件——具体入口请你按实际界面确认<<}                |
 | ZotLit 正常，Inputs Bell 后字段或路径变了 | 暂停 Inputs Bell，单独验收 ZotLit，再逐个开启后处理脚本            |
 |                                |                                                  |
 

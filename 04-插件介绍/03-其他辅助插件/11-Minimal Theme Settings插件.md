@@ -31,7 +31,9 @@ Minimal Theme Settings 是 Minimal 主题的官方配套插件，可以在 Obsid
 
 **【PaperBell 当前配置】**
 
-当前库已经安装 Minimal 主题和 Minimal Theme Settings `9.0.0`，但实际启用的主题是 **AnuPpuccin**。因此，插件中保存的彩色标题、正文宽度、全宽媒体和边框等设置目前不会主导 PaperBell 的界面效果。
+当前库已经安装 Minimal 主题和 Minimal Theme Settings `9.0.0`，但实际启用的主题是 {~~**AnuPpuccin**~>**Minimal**~~}{>>⚠️ 这里说反了：示例库 `.obsidian/appearance.json` 里 `cssTheme: "Minimal"`，AnuPpuccin 只是装了、**没有启用**。所以这一整段的结论也要跟着翻过来——Minimal Theme Settings 的设置**恰恰是**主导界面效果的那一套，不是「不会主导」。
+
+容易造成误会的地方在于：启用的 20 个 CSS snippet 里有 5 个叫 `【AnuPpuccin】…`（extended-colorschemes、floating-search-bar、its-frontmatter、minimal-cards、notion-cards），光看 snippet 名字确实像在用 AnuPpuccin。但 snippet 和主题是两回事——这几个 snippet 是在 Minimal 主题之上叠样式。下面那段「PaperBell 当前的外观主要由以下内容控制」也要一并改<<}。因此，插件中保存的彩色标题、正文宽度、全宽媒体和边框等设置目前不会主导 PaperBell 的界面效果。
 
 PaperBell 当前的外观主要由以下内容控制：
 

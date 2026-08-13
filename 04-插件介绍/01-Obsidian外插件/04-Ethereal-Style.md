@@ -39,7 +39,9 @@ Obsidian 主题或 CSS 决定 Callout 的最终外观
 因此，颜色分组并不只由 `zotlit-annotation.liquid.md` 完成：
 
 - `00 - Obsidian/模板/zotlit-content.liquid.md`：负责排序、分组和中文栏目名；
-- `00 - Obsidian/模板/zotlit-annotation.liquid.md`：负责渲染每一条批注，并把 `colorName` 写入 Callout 类型。
+- `00 - Obsidian/模板/zotlit-annotation.liquid.md`：负责渲染每一条批注，并把 `colorName` 写入 Callout 类型。{>>这一页六处提到的 `zotlit-content.liquid.md` / `zotlit-annotation.liquid.md` 在示例库里都**不存在**。`00 - Obsidian/模板/` 下的实际文件是 `zt-annots.eta.md`（按颜色分组、生成中文栏目名）和 `zt-annot.eta.md`（渲染单条批注）——功能对得上，就是文件名和模板语言都不一样。
+
+我没有在这一页逐处替换，因为这是 04-插件介绍/02-.../05-ZotLit.md 那个「Liquid 还是 Eta」的方向性问题的一部分：要么示例库该迁到 Liquid，要么这三页（本页 + 05-ZotLit.md + 05-高级定制/01-ZotLit模板自定义.md）都要按 Eta 重写。等你定了方向再一次性改，比现在分头改省事<<}
 
 ## 当前颜色语义
 

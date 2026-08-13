@@ -145,7 +145,9 @@ sourceField: institute
 
 ### 场景 A：豆瓣电影 / 图书
 1. 浏览器里用 **Web Clipper** 剪豆瓣页 → 笔记落进 `Inputs`。
-2. Inputs Bell 自动：`localize-images` 把海报下载到 `Inputs/_assets`、改本地链接；`move-by-frontmatter` 按 `url:movie.douban.com => Movie` 把它挪进 `Inputs/Movie`。
+2. Inputs Bell 自动：`localize-images` 把海报下载到 {~~`Inputs/_assets`~>`20 - Inputs/_assets`~~}、改本地链接；`move-by-frontmatter` 按 {~~`url:movie.douban.com => Movie` 把它挪进 `Inputs/Movie`~>`url:movie.douban.com => Movies` 把它挪进 `20 - Inputs/Movies`~~}。{>>目录是复数 `Movies`——示例库里实际的文件夹就是 `20 - Inputs/Movies`，配置里的规则也写的 `Movies`（见本页第 9 节）。
+
+⚠️ 但这里有个**真正的坑**值得单独写一句：脚本 `90-move-by-frontmatter.js` 的**出厂默认**规则确实是单数 `Movie`（我在示例库脚本第 31、33 行核对过），而示例库交付的配置改成了复数 `Movies`。也就是说读者一旦点了「恢复默认规则」，豆瓣电影就会被移进一个新建的 `20 - Inputs/Movie` 目录，和库里已有的 `Movies` 分家，而且不会报错。本页第 4 节那份「默认规则」清单写的是单数，那是对的，别改——但两处一单一复、中间没有任何说明，读者八成会以为其中一处是笔误<<}
 3. 全程不用手动。
 
 ### 场景 B：Zotero 文献
@@ -261,7 +263,7 @@ localize-images:
 
 link-institution:
   institutesFolder: 30 - Metadata/Institutes
-  useAiFallback: true
+  useAiFallback: {~~true~>false~~}{>>示例库 `paper-in-bell/data.json` 里这一项是 `false`。差别不小：`true` 时 ROR 匹配不到机构会退回让 LLM 猜，`false` 就直接不建机构笔记。03-详细教程/05-追踪学者和组织.md 的排错表里「没有创建机构档案」那一条，很可能就和这个开关有关<<}
   templatePath: 00 - Obsidian/模板/机构模板pro
 ```
 
@@ -277,7 +279,7 @@ tag:reading => Books
 tag:clip => Clippings
 ```
 
-要启用“追踪学者和组织”的自动路径，还需在最后一条之前加入：
+要启用“追踪学者和组织”的自动路径，{~~还需在最后一条之前加入~>还需确认最后一条之前存在下面这条规则（示例库已内置）~~}{>>示例库的配置里这条规则**已经有了**，位置也正确（在 `tag:clip` 之前）。写成「还需加入」会让读者去设置里添加一条已经存在的规则。03-详细教程/05-追踪学者和组织.md 那边我也一并改成了「确认」<<}：
 
 ```text
 tag:scholar => /30 - Metadata/Scholars

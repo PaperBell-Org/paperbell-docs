@@ -61,7 +61,11 @@ order: 4
 | PaperBell Section | 属于核心插件；具体输入、输出和工作流位置仍需按实际版本核对 | 待补 |
 | Paper Search | 属于核心插件；具体输入、输出和工作流位置仍需按实际版本核对 | 待补 |
 
-在没有完成实际功能核验前，不根据 PaperBell Section 或 Paper Search 的名称猜测其职责。
+在没有完成实际功能核验前，不根据 PaperBell Section 或 Paper Search 的名称猜测其职责。{>>从示例库的配置里可以补上一些确定信息，供你写这两页时参考（都是从 `data.json` 和 `manifest.json` 读出来的，**不是我猜的**，但也不等于我验证过功能）：
+
+**PaperBell Section**（`paperbell-section` 0.2.0）：一个独立的工作区视图，配了 9 个组件——学术概览、今日聚焦、最近文献、研究焦点地图、研究论文、实验数据、科研课题、学术资源、书架。数据源指向 `20 - Inputs/Zotero`（论文文献）和 `20 - Inputs/Books`（书架）。命令只有一条 `Open PaperBell Section`。
+
+**Paper Search**（`papersearch` 0.7.0，**仅桌面端**）：文献检索/阅读/批注，12 条命令（打开面板、复制引文 APA/MLA/Chicago/BibTeX、生成参考文献表、AI 核查论断等），6 种批注角色（观点/方法/引用/质疑/术语/待查）。目录指向 `20 - Inputs/Zotero` 和 `10 - Cards/Concepts`。⚠️ 两个坑要在页面里写明：① 它需要一个本地 Python 后端（`http://127.0.0.1:8000`），而这个后端**没有随示例库分发**；② 配置里的 `conceptCandidateDir: 10 - Cards/Concepts/_候选` 这个目录在示例库里**不存在**。这两条都是读者一打开就会撞上的<<}
 
 ## 三、其他辅助插件
 
@@ -74,7 +78,7 @@ order: 4
 | [Calendar](03-其他辅助插件/03-Calendar插件.md) | 从月历查看、创建和打开日记或周记 |
 | [Claudian](03-其他辅助插件/04-Claudian插件.md) | 在 Vault 中使用 AI 代理辅助检查、整理和维护笔记 |
 | [Dataview](03-其他辅助插件/05-Dataview插件.md) | 将已有字段、标签和链接展示为动态查询 |
-| [Dynamic Table of Contents](03-其他辅助插件/06-Dynamic%20Table%20of%20Contents插件.md) | 在正文中生成并自动更新可点击目录 |
+{--| [Dynamic Table of Contents](03-其他辅助插件/06-Dynamic%20Table%20of%20Contents插件.md) | 在正文中生成并自动更新可点击目录 |--}{>>示例库里**没有安装**这个插件（`.obsidian/plugins/` 下没有它，`community-plugins.json` 里也没有）。目录导航的活儿由下一行的 Floating TOC 干了，两者功能重叠。建议连同 `03-其他辅助插件/06-Dynamic Table of Contents插件.md` 整页一起删掉——不过删页我没替你做<<}
 | [Floating TOC](03-其他辅助插件/07-Floating%20toc插件.md) | 为长笔记提供不占正文的悬浮标题导航 |
 | [Homepage](03-其他辅助插件/08-Homepage插件.md) | 打开指定首页或预设工作区 |
 | [Hover Editor](03-其他辅助插件/09-Hover%20Editor插件.md) | 在悬浮预览窗口中直接编辑链接笔记 |
@@ -83,8 +87,11 @@ order: 4
 | [Pixel Banner](03-其他辅助插件/12-Pixel%20Banner插件.md) | 为笔记展示横幅和封面 |
 | [Recent Files](03-其他辅助插件/13-Recent%20Files插件.md) | 提供最近打开文件的快捷入口 |
 | [Simplified Chinese Word Splitting](03-其他辅助插件/14-Simplified%20Chinese%20Word%20Splitting插件.md) | 改善中文分词、选词和光标移动体验 |
-| [Soundscapes](03-其他辅助插件/15-Soundscapes插件.md) | 在 Obsidian 中播放环境声或本地音乐 |
+{--| [Soundscapes](03-其他辅助插件/15-Soundscapes插件.md) | 在 Obsidian 中播放环境声或本地音乐 |--}{>>Soundscapes 已经在示例库最新一次提交里被移除了（commit message 就是 "remove Soundscapes plugin and clean up related files"）。你在 02-快速上手/01-开始之前.md:72 把「音乐」从体验增强插件里划掉，方向一致。建议 `03-其他辅助插件/15-Soundscapes插件.md` 整页删除。另外提醒一句：示例库 `paperbell/data.json` 的 `landing.completedSteps.configurePlugins` 里还残留着 `soundscapes` 和 `obsidian-pandoc-reference-list` 两个已经不存在的插件 id，那是**示例库**该清理的，不是手册的问题<<}
 | [Style Settings](03-其他辅助插件/16-Style%20Settings插件.md) | 配置主题、插件和 CSS snippets 提供的样式变量 |
+{++| Sortable | 让表格和 Bases 视图的表头可以点击排序 |
+| Tag Wrangler | 在标签面板里重命名、合并和管理标签 |++}{>>这两个是示例库里**已启用**但手册完全没提的社区插件（`obsidian-sortable` 0.3.1、`tag-wrangler` 0.6.4）。Tag Wrangler 尤其值得写——PaperBell 大量依赖 `#project/<acronym>`、`#milestone`、`#想法` 这些标签，改项目缩写时批量重命名标签正是它的活儿，而 03-详细教程/02-管理科研项目.md 的 FAQ「修改项目 ID 后出现了两个项目怎么办」现在只能让读者手工搜索替换。我只加了表格行，没有建对应的插件页<<}
+{>>还有一个 `obsidian42-brat`（BRAT 2.2.0）装在示例库里但**处于禁用状态**。它是用来装 beta 版插件的，7 个 PaperBell 自研插件都走这条路发布。如果发布包是把插件预装好交付给用户，那读者确实不需要 BRAT，现状没问题；但如果有任何一步需要读者自己更新 beta 插件，就得在手册里交代它。这一点要看你们的分发方式，我没法从示例库判断<<}
 
 ## 四、按工作流查看组合关系
 

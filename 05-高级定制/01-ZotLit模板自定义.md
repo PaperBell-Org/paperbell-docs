@@ -18,7 +18,9 @@ ZotLit 模板决定 Zotero 数据进入 Obsidian 后“长什么样”：文献�
 | 模板语言 | Liquid |
 | 模板目录 | `00 - Obsidian/模板` |
 | 文献笔记目录 | `20 - Inputs/Zotero` |
-| 模板文件 | 6 个 `zotlit-*.liquid.md` |
+| 模板文件 | 6 个 `zotlit-*.liquid.md` |{>>⚠️ 整页前提待确认：示例库 `00 - Obsidian/模板/` 下**没有任何** `zotlit-*.liquid.md`，实际是 **7 个 `zt-*.eta.md`**（`zt-note` `zt-field` `zt-annot` `zt-annots` `zt-cite` `zt-cite2` `zt-colored`）。这一页 459 行的 Liquid 语法讲解、代码示例和排错表全都建立在 Liquid 模板之上。
+
+这不是逐处替换文件名能解决的——要么示例库该迁到 Liquid（那么该改的是库），要么这一页要按 Eta 重写。同样的问题在 04-插件介绍/02-.../05-ZotLit.md 和 01-Obsidian外插件/04-Ethereal-Style.md 也有，三页一起定方向。所以这一页我**只留了这一条批注，没有逐处改动**，避免在方向未定时制造一堆需要回滚的修改<<}
 | Managed Frontmatter | 11 个 JavaScript 表达式字段 |
 | JavaScript Templates gate | 已开启 |
 

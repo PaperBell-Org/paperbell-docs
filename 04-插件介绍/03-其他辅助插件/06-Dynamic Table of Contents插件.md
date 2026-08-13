@@ -1,3 +1,4 @@
+{>>⚠️ 建议整页删除：示例库里**没有安装**这个插件（`.obsidian/plugins/` 下没有 `obsidian-plugin-dynamic-toc`，`community-plugins.json` 里也没有）。目录导航实际由 Floating TOC 承担，两者功能重叠。04-插件介绍/index.md 里对应的那一行我已经标了删除<<}
 **【开源链接】**
 <https://github.com/aidurber/obsidian-plugin-dynamic-toc>
 

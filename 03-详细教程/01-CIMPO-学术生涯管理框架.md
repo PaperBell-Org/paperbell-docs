@@ -79,11 +79,12 @@ order: 1
 
 **分工**：**抓取**由各单元自己的工具负责（QuickAdd 豆瓣宏、Web Clipper、ZotLit）；**归一化**统一交给 **Inputs Bell 插件**——它监听 `20 - Inputs/`，对每篇新笔记按文件名顺序跑一串可插拔脚本：
 
-> [!example]- Inputs Bell 的四步归一化流水线（点击展开）
+> [!example]- Inputs Bell 的{~~四~>五~~}步归一化流水线（点击展开）
 > 1. **`10-normalize-frontmatter`** — 补齐 `input_type` / `title` / `authors` / `keywords`（只补不覆盖）
 > 2. **`20-localize-images`** — 把远程图片（豆瓣封面等）下载进 `20 - Inputs/_assets`，顺带处理防盗链
 > 3. **`30-verify-zotero`** — 回 Zotero 本地 API 核对文献元数据（默认关闭，受保护字段永不被覆盖）
-> 4. **`90-move-by-frontmatter`** — 按 frontmatter 把笔记归位到正确的子文件夹
+> {++4. **`40-link-institution`** — 拿学者的 `institute` 字段去 ROR 查机构，在 `30 - Metadata/Institutes` 建好或复用机构笔记（默认启用）
+> 5.++}{--4.--} **`90-move-by-frontmatter`** — 按 frontmatter 把笔记归位到正确的子文件夹{>>漏了 `40-link-institution`——示例库 `00 - Obsidian/InputsBell/` 下实际有五个脚本，而且这一个是**默认启用**的（反倒是列出来的 `30-verify-zotero` 默认关闭）。它还是 03-详细教程/05-追踪学者和组织.md 整条自动路径的关键一环：机构笔记就是它建的。放在 90-move 之前也正好解释了为什么顺序不能乱——学者笔记一旦被移出 `20 - Inputs`，机构就关联不上了<<}
 
 > [!success] 统一的结局
 > 无论从哪个源头进来，落地后的笔记都长成同一副样子：**只带 `keywords`，不带 `concepts`**。连接的活儿留给概念一侧。
@@ -189,7 +190,7 @@ paper-demo/
 `-- supplementary/               自带 metadata.json → 图表编号加 S 前缀
 ```
 
-四份草稿对应四条内置编译工作流（`PaperBell Manuscript` / `Supplementary` / `Response Letter` / `Cover Letter`）。
+四份草稿对应四条内置编译工作流（`PaperBell Manuscript` / {~~`Supplementary` / `Response Letter` / `Cover Letter`~>`PaperBell Supplementary` / `PaperBell Response Letter` / `PaperBell Cover Letter`~~}）{++；另外还有 `Default Workflow` 和 `Quick Export` 两条通用工作流++}{>>后三条实际都带 `PaperBell ` 前缀（见示例库 `longform-paperbell/data.json`）。读者在编译面板的 workflow 下拉里按无前缀的名字找会对不上——而且列表里一共 6 条，只说四条也容易让人以为选错了<<}。
 
 > [!danger] 编译顺序：先主手稿
 > 主手稿会抓取行号与图号，回复信才能引用「手稿第几行、图几」。
