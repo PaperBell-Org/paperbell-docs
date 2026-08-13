@@ -307,6 +307,12 @@ PaperBell 的 Frontmatter 不是写在 `zotlit-note.liquid.md` 中，而是在 Z
       "language": "javascript"
     },
     {
+      "key": "citekey",          
+      "expr": "zt.citationKey || \"\"",
+      "merge": "replace",
+      "language": "javascript"
+    },
+    {
       "key": "tags",
       "expr": "[\"paper\", ...(zt.tags || []).filter(t => t.name && t.name.startsWith('#')).map(t => t.name.slice(1))]",
       "merge": "replace",
@@ -319,7 +325,7 @@ PaperBell 的 Frontmatter 不是写在 `zotlit-note.liquid.md` 中，而是在 Z
       "language": "javascript"
     },
     {
-      "key": "keywords",
+      "key": "concepts",
       "expr": "(zt.tags || []).filter(t => t.name && !t.name.startsWith('#') && !t.name.includes('⭐') && !t.name.includes('🌟') && !['更新','推荐','关联','检索','浏览','初读','精读','星标'].some(e => t.name.endsWith(e))).map(t => t.name)",
       "merge": "replace",
       "language": "javascript"
