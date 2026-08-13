@@ -1,0 +1,16 @@
+{
+  "readingShowComments": true,
+  "revealMarkupOnCommentJump": true,
+  "clickMarksToOpenPanel": true,
+  "confirmBeforeDelete": true,
+  "highlightChangedChars": true,
+  "localAuthorName": "",
+  "replyDateStyle": "date",
+  "finalize": {
+    "additions": "accept",
+    "deletions": "reject",
+    "substitutions": "reject",
+    "stripHighlights": true,
+    "stripAiText": true
+  }
+}
