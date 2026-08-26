@@ -1,3 +1,10 @@
+---
+title: PaperOut To-Authors 使用指南
+description: 使用 PaperOut To-Authors 2.4.0-beta.6 创建长文项目、选择六条工作流并通过 Pandoc 导出
+status: published
+order: 7
+---
+
 # PaperOut To-Authors 使用指南
 
 > [!abstract] **PaperOut 能帮你做什么**
@@ -9,7 +16,7 @@
 > 左侧边栏的 **PaperOut 图标**，或命令面板搜索 `PaperOut`。
 
 > [!faq]- 想了解它在整个套件里的定位与路线图？
-> 见同目录 [[07-PaperOut 协作与使用场景]]。本文只讲**动手操作**。
+> 见同目录 [[08-PaperOut 协作与使用场景]]。本文只讲**动手操作**。
 
 ---
 
@@ -17,9 +24,9 @@
 
 > [!success] 不用从空文件夹开始
 > **文件夹右键 →「新建 PaperBell 论文项目…」**，或命令面板 `新建 PaperBell 论文项目`。
-> 输入项目标题（缩写自动生成、可改），一次生成**一个项目的四份草稿**。
+> 输入项目标题（缩写自动生成、可改），一次生成**论文项目骨架**（默认 Main Manuscript，其余组件可在对话框勾选）。
 
-一个论文项目自动包含四份草稿：
+一个论文项目默认包含 Main Manuscript，其余按需添加：
 
 | 草稿 | 用途 | 特点 |
 | --- | --- | --- |
@@ -90,7 +97,7 @@ brew install pandoc-crossref     # pandoc-crossref
 ```
 
 > [!faq]- 资产落在哪？
-> 工具链资产在同一页「浏览资产市场」下载，默认落在库内 **`PaperBell/pandoc/`**。
+> 工具链资产在同一页「浏览资产市场」下载，默认落在库内 **`00 - Obsidian/pandoc`**。
 > 👉 你在那里的**手动修改不会被插件更新覆盖**。
 
 ---
@@ -137,8 +144,8 @@ brew install pandoc-crossref     # pandoc-crossref
 > [!cite] 延伸阅读
 > - 资产仓库规范：插件仓库 `docs/ASSET_MARKETPLACE_SPEC.md`
 > - Pandoc 导出细节：`docs/PANDOC_EXPORT.md`
-> - 套件定位与路线图：[[07-PaperOut 协作与使用场景]]
+> - 套件定位与路线图：[[08-PaperOut 协作与使用场景]]
 
 ---
 
-[上一章：概念卡使用场景](06-概念卡使用场景.md) · [返回详细教程](index.md) · [PaperOut 协作与使用场景](07-PaperOut%20协作与使用场景.md)
+[上一章：概念卡使用场景](06-概念卡使用场景.md) · [返回详细教程](index.md) · [PaperOut 协作与使用场景](08-PaperOut%20协作与使用场景.md)

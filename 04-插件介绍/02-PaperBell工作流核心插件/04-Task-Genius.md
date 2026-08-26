@@ -1,13 +1,13 @@
 ---
 title: Task Genius
 description: 说明 Task Genius 如何识别 Markdown 任务，并通过项目标签连接 PaperBell 科研项目
-status: draft
+status: published
 order: 4
 ---
 
 # Task Genius
 
-Task Genius 负责扫描 Obsidian 中的 Markdown 任务，并在项目、标签、列表、日历、看板、甘特图和表格等视图中统一管理。PaperBell 主要使用它完成两件事：**快速添加任务**，以及**把散落在全库的任务归入科研项目**。
+Task Genius `9.14.0-beta.5` 负责扫描 Obsidian 中的 Markdown 任务，并在项目、标签、列表、日历、看板、甘特图和表格等视图中统一管理。PaperBell 主要使用它完成两件事：**快速添加任务**，以及**把散落在全库的任务归入科研项目**。
 
 ## 安装
 
@@ -15,11 +15,13 @@ Task Genius 负责扫描 Obsidian 中的 Markdown 任务，并在项目、标签
 
 **[Task Genius 项目管理说明](https://taskgenius.md/docs/project)**
 
-也可以在 Obsidian 的“设置 → 第三方插件 → 社区插件市场”中搜索 `Task Genius` 安装。
+PaperBell v5.0.1 已启用该插件；也可以在 Obsidian 的“设置 → 第三方插件 → 社区插件市场”中搜索 `Task Genius` 安装。
 
 ## PaperBell 的单独配置
 
-下面使用 Task Genius 当前界面中的英文名称。进入“设置 → Task Genius”，按左侧设置页检查：
+下面列出 `data.json` 可确认的配置字段；设置页分组和显示文案可能随 beta 版本变化。
+
+
 
 | 设置页 | 界面选项 | PaperBell 当前值 |
 | --- | --- | --- |
@@ -27,6 +29,7 @@ Task Genius 负责扫描 Obsidian 中的 Markdown 任务，并在项目、标签
 | **Views** | **Enable Task Genius Views** | 开启 |
 | **Projects** | **Enable project features** | 关闭 |
 | **Quick Capture** | **Enable quick capture** | 开启 |
+| **Beta** | **Enable Base View** | 关闭 |
 
 快速捕获的目标配置为：
 
@@ -134,6 +137,8 @@ Task Genius 的项目列表由现有任务的项目元数据生成，不是由 P
 ## 五、任务视图与 Bases 视图的区别
 
 Task Genius 的主任务视图以**单条任务**为对象，可以跨文件完成、编辑和筛选任务。
+
+此外，Task Genius 的插件代码可为 Obsidian Bases 提供 `task-genius-projects`、`task-genius-gantt`、`task-genius-tags`、`task-genius-calendar`、`task-genius-kanban` 等自定义视图类型，发布包的部分 `.base` 文件也引用了这些类型；但当前 `betaTest.enableBaseView` 为 `false`。因此应把“文件已引用自定义类型”和“当前已启用并成功渲染”分开，不能声称这些 Base 视图现已全部可用。
 
 PaperBell 的 `.base` 文件通常以**Markdown 文件或项目主页**为对象，用来显示项目卡片、项目概览或与项目关联的文件。两者可以同时使用，但不要把 Base 中的一行文件误认为 Task Genius 索引中的一条任务。
 

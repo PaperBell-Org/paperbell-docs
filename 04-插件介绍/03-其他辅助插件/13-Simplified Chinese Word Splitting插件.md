@@ -1,3 +1,12 @@
+---
+title: Simplified Chinese Word Splitting
+description: 介绍简体中文分词插件对选词、光标移动和中文编辑体验的改善
+status: published
+order: 13
+---
+
+# Simplified Chinese Word Splitting
+
 **【开源链接】**
 <https://github.com/aidenlx/cm-chs-patch>
 
@@ -14,4 +23,4 @@ PaperBell 库的内容基本都是中文（学者、机构、文献笔记等）�
 
 ---
 
-[上一篇：Recent Files](13-Recent%20Files插件.md) · [返回插件总览](../index.md) · [下一篇：Soundscapes](15-Soundscapes插件.md)
+[上一篇：Recent Files](12-Recent%20Files插件.md) · [返回插件总览](../index.md) · [下一篇：Style Settings](14-Style%20Settings插件.md)

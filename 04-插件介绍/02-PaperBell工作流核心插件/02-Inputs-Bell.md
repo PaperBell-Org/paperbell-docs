@@ -1,16 +1,16 @@
 ---
 title: Inputs Bell
 description: 在输入笔记进入 Obsidian 后执行字段归一化、图片本地化、校对与归位
-status: draft
+status: published
 order: 2
 ---
 
-# Inputs Bell 使用文档
+# Inputs Bell
 
 > 一个 **Inputs 文件夹的「后处理钩子」** 插件。它**不负责采集**——采集交给各自的专业工具（浏览器 Web Clipper 抓豆瓣、ZotLit 导 Zotero 文献…）。Inputs Bell 只做一件事：**监听 Inputs 文件夹，笔记一落进来就自动跑一串「后处理脚本」**，把它检查、修好、归位。
 
-- 插件 id：`paper-in-bell` ・ 显示名：**Inputs Bell** ・ 作者：PaperBell-Org
-- 仓库/发布：随 PaperBell 发布渠道提供；公开链接确认后再补充。
+- 插件 id：`paper-in-bell` ・ 显示名：**Inputs Bell** ・ 当前版本：**`0.5.3`** ・ 作者：PaperBell-Org
+- 仓库/发布：随 PaperBell 发布渠道提供
 
 ---
 
@@ -22,7 +22,7 @@ Web Clipper 只把学者资料保存到 `20 - Inputs`。Inputs Bell 接手之后
 2. 根据 `institute` 查询 ROR，并在 `30 - Metadata/Institutes` 创建或复用机构档案；
 3. 将学者笔记移动到 `30 - Metadata/Scholars`。
 
-PaperBell 当前的 Scholar clipper 会同时写入 `scholar` 和 `clippings` 标签。现有归类规则尚未包含学者目录，因此需要在 `tag:clip` 之前加入：
+PaperBell 当前的 Scholar clipper 会同时写入 `scholar` 和 `clippings` 标签。当前配置已在 `tag:clip` 之前预置：
 
 ```text
 tag:scholar => /30 - Metadata/Scholars
@@ -35,7 +35,7 @@ tag:scholar => /30 - Metadata/Scholars
 ```yaml
 institutesFolder: 30 - Metadata/Institutes
 templatePath: 00 - Obsidian/模板/机构模板pro
-sourceField: institute
+useAiFallback: false
 ```
 
 低置信度的 ROR 结果不会自动创建，已有机构会按 `ror_id`、名称或别名复用。自动匹配完成后仍应人工核对。
@@ -58,7 +58,7 @@ sourceField: institute
 
 1. 从 PaperBell 发布包获取 `manifest.json` / `main.js` / `styles.css`，放进 `<库>/.obsidian/plugins/paper-in-bell/`。公开安装渠道确认后，再以官方发布说明为准。
 2. **设置 → 第三方插件** 启用 **Inputs Bell**。
-3. 首次加载会在「脚本文件夹」（**插件默认** `Inputs/_scripts`）写入 4 个内置脚本。
+3. 首次加载会在「脚本文件夹」（**插件默认** `Inputs/_scripts`）写入 5 个内置脚本。
 
 > 路径口径：插件出厂默认 `监听文件夹 = Inputs`、`脚本文件夹 = Inputs/_scripts`。本 CIMPO 示例库把它们
 > 改成了 `监听文件夹 = 20 - Inputs`、`脚本文件夹 = 00 - Obsidian/InputsBell`（见第 9 节）——两种都行，
@@ -108,9 +108,13 @@ sourceField: institute
 把笔记里的远程图片（豆瓣等，按上面的 Referer 规则带 Referer 下载）存到资源文件夹，并把链接改成本地。豆瓣海报会自动升级成大图。下载失败的保留原链接。**无参数**（用「图片本地化」区的设置）。
 > 为什么需要：豆瓣图片有防盗链，Obsidian 直接加载会裂图；本地化后离线、永不失效。
 
-### `30-verify-zotero.js` — 向 Zotero 校对（默认关闭）
+### `30-verify-zotero.js` — 向 Zotero 校对（已配置、当前未启用）
 按笔记的 `zotero-key` 回 Zotero 本地 API 拉最新元数据，刷新 title/authors/DOI/citekey/publicationTitle 等**权威字段**，`tags` 做并集，**但永不动受保护字段**。需 Zotero 运行，故默认关。
 - 参数 **仅处理有 zotero-key 的笔记**（默认开）：关掉则对所有笔记尝试（没 key 的会跳过）。
+
+### `40-link-institution.js` — 关联 ROR 机构（发布包已启用）
+读取学者笔记的 `institute` 字段，通过 ROR v2 `affiliation` 接口联网查询，并在 `30 - Metadata/Institutes` 复用或创建机构笔记。默认置信度阈值为 `0.9`；低于阈值时只报告、不建笔记。ROR 未给出确定匹配标记时，脚本会取最高分候选并明确提示人工核对，而不是静默确认。发布包已启用此脚本，`useAiFallback: false`，所以未匹配时不会调用 AI 归一化；已有机构优先按 `ror_id`、名称或别名复用。运行前应确认允许访问 ROR，并在生成后核对机构名称、标识和地理字段。
+
 
 ### `90-move-by-frontmatter.js` — 按 frontmatter 移动到子文件夹 ⭐
 根据 frontmatter 判断归属，移动到监听文件夹下的对应子文件夹（用 `renameFile`，**保持反链**；已在目标里则不动）。**规则可在设置里直接改，不用动 .js**。
@@ -145,12 +149,12 @@ sourceField: institute
 
 ### 场景 A：豆瓣电影 / 图书
 1. 浏览器里用 **Web Clipper** 剪豆瓣页 → 笔记落进 `Inputs`。
-2. Inputs Bell 自动：`localize-images` 把海报下载到 `Inputs/_assets`、改本地链接；`move-by-frontmatter` 按 `url:movie.douban.com => Movie` 把它挪进 `Inputs/Movie`。
+2. Inputs Bell 自动：`localize-images` 把海报下载到 `20 - Inputs/_assets`、改本地链接；发布包覆盖规则 `url:movie.douban.com => Movies` 会把它挪进 `20 - Inputs/Movies`。插件出厂默认可能使用单数 `Movie`，不要在本库中恢复后不检查，否则会新建另一目录。
 3. 全程不用手动。
 
 ### 场景 B：Zotero 文献
 1. 用 **ZotLit** 从 Zotero 导入文献笔记（正文 + 彩色标注由 ZotLit 生成）。
-2. 笔记进 `Inputs`（或直接进 `Inputs/Zotero`）→ 启用 `verify-zotero` 后，Inputs Bell 按 `zotero-key` 回库校对元数据，**保护我手填的 `read/source/important/keywords`**；`move-by-frontmatter` 用 `has:zotero-key => Zotero` 确保归位。
+2. 笔记进 `Inputs`（或直接进 `Inputs/Zotero`）后，当前不会运行 `verify-zotero`，因为它虽已配置但不在四个 `enabledScripts` 中；需要校对时可临时启用，再按 `zotero-key` 回库刷新权威字段并保护 `read/source/important/keywords`。`move-by-frontmatter` 会用 `has:zotero-key => Zotero` 确保归位。
 
 ### 场景 C：网页剪藏 / Cubox
 落进来的剪藏跑 `normalize-frontmatter` 补 `input_type`/`keywords`，`move` 按 `tag:clip => Clippings` 归位。
@@ -258,10 +262,17 @@ enabledScripts:
 
 localize-images:
   assetsFolder: 20 - Inputs/_assets
+  refererRules: doubanio.com => https://www.douban.com/
+
+verify-zotero: # 已配置，但不在 enabledScripts 中
+  apiUrl: http://localhost:23119
+  protectedFields: read, source, important, keywords
+  tagIgnore: ""
+  onlyWithKey: true
 
 link-institution:
   institutesFolder: 30 - Metadata/Institutes
-  useAiFallback: true
+  useAiFallback: false
   templatePath: 00 - Obsidian/模板/机构模板pro
 ```
 
@@ -274,10 +285,11 @@ url:movie.douban.com => Movies
 url:book.douban.com => Books
 tag:电影 => Movies
 tag:reading => Books
+tag:scholar => /30 - Metadata/Scholars
 tag:clip => Clippings
 ```
 
-要启用“追踪学者和组织”的自动路径，还需在最后一条之前加入：
+“追踪学者和组织”的自动路径使用上面已预置的 `tag:scholar` 规则；不要重复添加：
 
 ```text
 tag:scholar => /30 - Metadata/Scholars

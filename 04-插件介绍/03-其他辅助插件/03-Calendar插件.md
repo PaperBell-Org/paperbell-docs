@@ -1,3 +1,12 @@
+---
+title: Calendar
+description: 介绍 Calendar 的日历入口及其与 PaperBell 日记和周记流程的配合
+status: published
+order: 3
+---
+
+# Calendar
+
 **【开源链接】**
 <https://github.com/liamcain/obsidian-calendar-plugin>
 
@@ -7,7 +16,7 @@
 **【使用方法】**
 1. 启用后，侧边会浮出一个月历。
 2. 点任意一天，就会按预设模板打开（或自动新建）那天的日记，本库存放在 `30 - Metadata/DailyNote`，命名格式为"YYYY年MM月DD日"。
-3. 点左侧的周数，则会打开对应的周记，周记按照 `00 - Obsidian/模板/每周周记模板.md`创建并存进 `30 - Metadata/WeeklyNote`文件夹（该文件夹用户可自行创建）中，文件名为`gggg年W周记录（例如2026年30周记录）`。
+3. 点左侧的周数，则会打开对应的周记，周记按照 `00 - Obsidian/模板/每周周记模板.md`创建并存进 `30 - Metadata/WeeklyNote`文件夹（该文件夹用户可自行创建）中，文件名为`YYYY年第WW周记录`（例如 `2026年第30周记录`）。
 4. 有笔记的日期会带标记，新建的日记还会自动带上"前一天 / 后一天"和"本周记录"的链接。所以你不用记笔记该叫什么名、放在哪，点日历就全帮你安排好了。
 
 **【和 PaperBell 的联动】**

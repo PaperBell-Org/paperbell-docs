@@ -1,12 +1,10 @@
 ---
-cate: 方法
-date: 2026-07-14
-tags:
-  - output
-  - workflow
-longform: false
-concepts:
+title: PaperOut 协作与使用场景
+description: 说明 PaperOut To-Authors 2.4.0-beta.6 在 CIMPO 输出端的当前契约与规划边界
+status: published
+order: 8
 ---
+
 # PaperOut 协作与使用场景
 
 > [!abstract] **一句话认识 PaperOut**
@@ -51,7 +49,7 @@ PaperOut 今天的协作分两层：**不装宿主也成立的文件约定**，�
 ### 🗂️ 靠文件 / frontmatter 约定（无需宿主）
 
 > [!success] 这些是"纯文件"契约——任何读库的插件都能看懂
-> - 📁 **一个论文项目 = 一个文件夹 + 四份草稿**，共享一份 `metadata.json`。项目的组成从索引 frontmatter + `metadata.json` 一目了然。
+> - 📁 **一个论文项目 = 一个文件夹 + 默认的 Main Manuscript 及按需添加的其余草稿**，共享一份 `metadata.json`（补充材料另有就近生效的 `supplementary/metadata.json`）。项目的组成从索引 frontmatter + `metadata.json` 一目了然。
 > - 🔗 输出笔记用 `project: <acronym>` **指回项目**、用 `concepts:` **选取概念**——这正是 Project Manager 数「交付物」、Cards Wrangler 反查「围绕此概念的输出」的接口。
 > - 📄 编译产出稳定的 **sidecar JSON**（`manuscript-lines.json`、`figure-numbers.json` 等）和固定路径的 PDF。
 > - 📦 Pandoc 工具链按需从 **paperout-assets-market** 资产市场下载（不塞进库里）。

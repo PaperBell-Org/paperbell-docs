@@ -1,3 +1,12 @@
+---
+title: Recent Files
+description: 介绍 Recent Files 的最近访问列表与快速返回笔记功能
+status: published
+order: 12
+---
+
+# Recent Files
+
 **【开源链接】**
 <https://github.com/tgrosinger/recent-files-obsidian>
 
@@ -14,4 +23,4 @@ PaperBell 库文件夹层级深，处理笔记时常在几篇之间来回切。R
 
 ---
 
-[上一篇：Pixel Banner](12-Pixel%20Banner插件.md) · [返回插件总览](../index.md) · [下一篇：Simplified Chinese Word Splitting](14-Simplified%20Chinese%20Word%20Splitting插件.md)
+[上一篇：Pixel Banner](11-Pixel%20Banner插件.md) · [返回插件总览](../index.md) · [下一篇：Simplified Chinese Word Splitting](13-Simplified%20Chinese%20Word%20Splitting插件.md)

@@ -1,7 +1,7 @@
 ---
 title: QuickAdd
 description: 介绍 PaperBell 当前配置的日记、学者、机构、豆瓣与术语命令
-status: draft
+status: published
 order: 9
 ---
 
@@ -115,9 +115,11 @@ destination: 20 - Inputs/Movies
 
 ```yaml
 template: 00 - Obsidian/模板/术语模板-手动.md
-filename: "{{VALUE:name}}"
 destination: 10 - Cards/Concepts
 ```
+
+> [!note] 文件名从哪来？
+> QuickAdd 的 `fileNameFormat` 当前处于关闭状态，因此文件不按预设格式命名，而是由术语模板在提示输入名称后执行 `tp.file.rename` 完成重命名。
 
 模板会再次确认术语名称，并询问别名。生成结果使用统一的概念字段：
 
@@ -164,7 +166,7 @@ filename: "{{name}}"
 destination: 40 - Projects
 ```
 
-`项目模板.md` 本身已经包含完整 frontmatter。重新启用该 Macro 前，应先测试“添加元数据”的插入位置，避免生成第二段 YAML。当前更稳妥的方式是在 `40 - Projects` 新建项目文件，让 Templater 的文件夹规则直接应用项目模板。
+`项目模板.md` 本身已经包含完整 frontmatter。不要重新启用该 Macro，也不要通过在 `40 - Projects` 直接新建文件来绕过项目管理入口；新项目统一使用 Project Manager 创建，以便由它维护项目主页、稳定 ID 与项目字段。
 
 ## 与 Templater、Inputs Bell 的边界
 
@@ -191,4 +193,4 @@ destination: 40 - Projects
 
 ---
 
-[返回插件总览](../index.md) · [返回追踪学者和组织](../../03-详细教程/05-追踪学者和组织.md)
+[返回插件总览](../index.md) · [返回追踪学者和组织](../../03-详细教程/05-追踪学者和组织.md) · [下一篇：Cards Wrangler](10-Cards-Wrangler.md)

@@ -1,13 +1,13 @@
 ---
 title: 第一部分：产品介绍
 description: 认识 PaperBell 的目标、边界与教程阅读方法
-status: outline
+status: published
 order: 1
 ---
 
 # 第一部分：产品介绍
 
-> [!note] 开发者署名章节
+> [!note] 本部分概览
 > 本部分从使用场景、核心设计理念和适用人群三个方面介绍 PaperBell，并为后续教程提供统一语境。
 
 ## PaperBell 是什么
@@ -16,7 +16,7 @@ PaperBell 不是一个单独的 Obsidian 插件，而是由以下部分共同组
 
 1. 一套采用 CIMPO 结构的 Obsidian 示例库；
 2. 一组负责输入、概念、项目、检索和输出的 PaperBell 插件；
-3. Zotero、ZotLit、Pandoc 等外部工具；
+3. Zotero、Pandoc 等外部工具，以及作为 Obsidian 插件运行的 ZotLit；
 4. 模板、Bases、属性约定、脚本和导出资产；
 5. 一套可以按个人研究方式继续修改的工作方法。
 

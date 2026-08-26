@@ -1,3 +1,12 @@
+---
+title: Advanced URI
+description: 介绍通过 Obsidian URI 从库内外打开笔记、标题或命令的方法
+status: published
+order: 2
+---
+
+# Advanced URI
+
 **【开源链接】**
 <https://github.com/Vinzent03/obsidian-advanced-uri>
 

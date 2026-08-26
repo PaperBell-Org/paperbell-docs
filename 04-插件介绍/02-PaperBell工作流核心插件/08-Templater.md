@@ -1,7 +1,7 @@
 ---
 title: Templater
 description: 介绍 PaperBell 当前启用的文件夹规则，以及日记、术语、项目、学者、机构和输出模板
-status: draft
+status: published
 order: 8
 ---
 
@@ -174,7 +174,7 @@ tags:
 | --- | --- |
 | `douban_book.md`、`douban_movie.md` | QuickAdd 模板 |
 | `询问定义提示词.md` | QuickAdd AI Assistant 提示词 |
-| `zotlit-*.liquid.md` | ZotLit Liquid 模板 |
+| `zt-*.eta.md` | ZotLit Eta 模板（由 ZotLit 执行，不由 Templater 执行） |
 | `机构模板pro.md` | Inputs Bell 机构模板 |
 | `每周周记模板.md` | 使用周记日期占位符，不是当前 Templater 文件夹模板 |
 | `*.base` | Obsidian Bases 查询和视图 |

@@ -1,7 +1,7 @@
 ---
 title: CIMPO 学术生涯管理框架
 description: 用 Concepts、Inputs、Metadata、Projects、Outputs 五个单元组织学术生涯
-status: draft
+status: published
 order: 1
 ---
 
@@ -77,13 +77,15 @@ order: 1
 > | ✂️ 网页剪藏 | Obsidian Web Clipper | `20 - Inputs/Clippings` |
 > | 📄 文献 | Zotero + ZotLit | `20 - Inputs/Zotero` |
 
-**分工**：**抓取**由各单元自己的工具负责（QuickAdd 豆瓣宏、Web Clipper、ZotLit）；**归一化**统一交给 **Inputs Bell 插件**——它监听 `20 - Inputs/`，对每篇新笔记按文件名顺序跑一串可插拔脚本：
+**分工**：**抓取**由各单元自己的工具负责（QuickAdd 豆瓣宏、Web Clipper、ZotLit）；**归一化**统一交给 **Inputs Bell 插件**——它监听 `20 - Inputs/`，对每篇新笔记运行当前启用的可插拔脚本：
 
-> [!example]- Inputs Bell 的四步归一化流水线（点击展开）
-> 1. **`10-normalize-frontmatter`** — 补齐 `input_type` / `title` / `authors` / `keywords`（只补不覆盖）
-> 2. **`20-localize-images`** — 把远程图片（豆瓣封面等）下载进 `20 - Inputs/_assets`，顺带处理防盗链
-> 3. **`30-verify-zotero`** — 回 Zotero 本地 API 核对文献元数据（默认关闭，受保护字段永不被覆盖）
-> 4. **`90-move-by-frontmatter`** — 按 frontmatter 把笔记归位到正确的子文件夹
+> [!example]- Inputs Bell 当前启用的四步流水线（点击展开）
+> 1. **`normalize-frontmatter`** — 补齐 `input_type` / `title` / `authors` / `keywords`（只补不覆盖）
+> 2. **`localize-images`** — 把远程图片下载到 `20 - Inputs/_assets`；当前防盗链规则为 `doubanio.com => https://www.douban.com/`
+> 3. **`move-by-frontmatter`** — 以 `20 - Inputs` 为基准，按 `has:zotero-key`、`has:citekey`、来源 URL 或标签归位；其中 `tag:scholar` 指向 `/30 - Metadata/Scholars`，并排在 `tag:clip` 前
+> 4. **`link-institution`** — 在 `30 - Metadata/Institutes` 建立或复用机构笔记，模板为 `00 - Obsidian/模板/机构模板pro`；未匹配时的 AI 归一化重试当前关闭（`useAiFallback: false`）
+>
+> `verify-zotero` 脚本已随包提供并配置为访问 `http://localhost:23119`，但**不在当前 `enabledScripts` 中**。它只处理带 Zotero key 的笔记，并保护 `read`、`source`、`important`、`keywords` 不被覆盖。
 
 > [!success] 统一的结局
 > 无论从哪个源头进来，落地后的笔记都长成同一副样子：**只带 `keywords`，不带 `concepts`**。连接的活儿留给概念一侧。
@@ -151,16 +153,17 @@ order: 1
 **两个身份字段**：`project` 是**显示名**（= 文件夹名），`acronym` 是**缩写**（用作标签）。
 
 > [!important] 生命周期只有一根轴：`stage`
-> 取值 `探索 → 进行 → 结题 / 归档 / 维护`。
-> 它取代了旧版互相重叠的 `status`（进行中/跟踪中/计划中）与 `phase`（探索期/执行期/…）——那两个字段说了两遍同一件事，还会在边缘互相矛盾。插件能透明读旧字段，**迁移时机你自己选**。
+> 取值以创建/编辑表单提供的选项为准；发布包模板当前使用 `探索`、`进行`、`追踪`、`完成`。不要再同时维护旧版 `status` 与 `phase`。
 
 > [!tip] 里程碑用原生 Markdown 待办
 > - 必须带 `#milestone` 标签才被统计（靠标签而非标题，因为标题写法五花八门）
 > - 进度 = `已完成 / (总数 − 已取消)`：`[-]` 取消的里程碑**整个移出分母**——放弃一个里程碑不该永久拖低进度条
 > - 任意笔记/待办打上 `#project/<acronym>` 就被该项目收录
+> 
 
 > [!danger] 项目自己不记账——连接都是**反查**出来的
 > - **交付物**：`50 - Outputs/` 里 `longform` 是**对象**（非 `true`/`false`）的笔记，用 `project: <acronym>` 指回
+> 
 > - **资助**：`30 - Metadata/Grants/` 里带 `grant` 标签的笔记，用 `project: "[[项目主页]]"` 指回（插件解析链接再读目标 `acronym`，链显示名或缩写都行）
 >
 > 所以卡片上的「交付物 N / 资助 M」是**数出来的**，项目 frontmatter 里**没有** `grants` 字段。
@@ -175,7 +178,9 @@ order: 1
 > | 📝 **Drafts** | 零散草稿，比较随意（`longform: false`） | — |
 > | 📚 **Longform** | 正式长文写作 | **PaperOut To-Authors** 插件 |
 
-一个 Longform **项目**就是一个文件夹，里面并列**同一篇论文的多份草稿**——主手稿、补充材料、回复信、投稿信——共享一份 `metadata.json`：
+一个 Longform **项目**就是一个文件夹，里面至少包含必选的 **Main Manuscript**；新建对话框默认只勾选主手稿，Supplementary、Cover Letter、Response Letter 是可选组件，也可稍后用“Add paper components…”补建。所选组件共享项目根目录的 `metadata.json`，Supplementary 另有就近优先的 `supplementary/metadata.json`：
+
+
 
 ```
 paper-demo/
@@ -189,13 +194,13 @@ paper-demo/
 `-- supplementary/               自带 metadata.json → 图表编号加 S 前缀
 ```
 
-四份草稿对应四条内置编译工作流（`PaperBell Manuscript` / `Supplementary` / `Response Letter` / `Cover Letter`）。
+四份草稿对应四条内置编译工作流（`PaperBell Manuscript` / `PaperBell Supplementary` / `PaperBell Response Letter` / `PaperBell Cover Letter`）；另外还有 `Default Workflow` 和 `Quick Export` 两条通用工作流。
 
 > [!danger] 编译顺序：先主手稿
 > 主手稿会抓取行号与图号，回复信才能引用「手稿第几行、图几」。
 
-> [!info] Pandoc 资产不随库分发
-> defaults / filters / templates / csl 由插件从 [paperout-assets-market](https://github.com/PaperBell-Org/paperout-assets-market) 按需下载到 `00 - Obsidian/pandoc/`。
+> [!info] Pandoc 基础资产与市场资产
+> v5.0.1 已在 `00 - Obsidian/pandoc/` 附带基础 defaults / filters / templates / csl；插件还可从 [paperout-assets-market](https://github.com/PaperBell-Org/paperout-assets-market) 按需安装或更新其他资产。
 
 > [!warning] 作者只写在 `metadata.json` 的 `creators` 里
 > 编译时自动生成 `authors:` 块注入手稿。`30 - Metadata/Scholars/` 是你追踪的**他人**，与手稿署名是两回事。
@@ -227,7 +232,8 @@ paper-demo/
 > 2. 把人 / 地 / 时单独抽成**元数据层**
 > 3. 整套设计**面向学术生涯**定制——长周期项目、学者机构追踪、文献"引用/精读"双层处理
 >
-> *（IOTO 的具体细节对照，待补。）*
+
+> 
 
 ### 小结
 

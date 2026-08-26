@@ -1,7 +1,7 @@
 ---
 title: ZotLit Companion
 description: 安装在 Zotero 中的 ZotLit 伴侣扩展
-status: draft
+status: published
 order: 3
 ---
 

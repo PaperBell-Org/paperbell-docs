@@ -1,7 +1,7 @@
 ---
 title: 第二部分：快速上手
 description: 完成必要安装与首次配置，并用一组测试数据跑通从网页采集到 Pandoc 首次导出的完整科研闭环
-status: draft
+status: published
 order: 2
 ---
 
@@ -36,16 +36,16 @@ flowchart TB
 
 ## 完成后的可检查结果
 
-| 结果 | 默认位置 | 最小验收 |
-| --- | --- | --- |
-| 测试项目 | `40 - Projects/<项目名>` | 项目主页包含稳定的 `acronym`，测试任务带有对应项目标签 |
-| Zotero 文献笔记 | `20 - Inputs/Zotero` | 文件名、`citekey`、作者、关键词和批注区可检查 |
-| 当天日记 | `30 - Metadata/DailyNote` | Thino 内容写入 `## 日程`，项目任务仍是普通 Markdown 任务 |
-| Web Clipper 网页采集 | `20 - Inputs`，随后由 Inputs Bell 归位 | 通用网页剪藏成功；Scholar 模板已导入，自动路径可按 Interpreter 配置继续验收 |
-| 学者与机构档案 | `30 - Metadata/Scholars`、`30 - Metadata/Institutes` | 学者、机构及二者关系可打开和核对 |
-| 概念卡 | `10 - Cards/Concepts` | 概念卡能够连接测试文献、学者或输出 |
-| PaperOut 项目 | `50 - Outputs/Longform` | 写作项目及 Main Manuscript 等组件已经创建 |
-| Word 或 PDF | PaperOut 设置的导出位置 | Pandoc 工作流成功结束，文件可以实际打开并检查 |
+| 结果               | 默认位置                                                | 最小验收                                         |
+| ---------------- | --------------------------------------------------- | -------------------------------------------- |
+| 测试项目             | `40 - Projects/<项目名>`                               | 项目主页包含稳定的 `acronym`，测试任务带有对应项目标签             |
+| Zotero 文献笔记      | `20 - Inputs/Zotero`                                | 文件名、`citekey`、作者、关键词和批注区可检查                  |
+| 当天日记             | `30 - Metadata/DailyNote`                           | Thino 内容写入 `## 日程`，项目任务仍是普通 Markdown 任务      |
+| Web Clipper 网页采集 | `20 - Inputs`，随后由 Inputs Bell 归位                    | 通用网页剪藏成功；Scholar 模板已导入，自动路径可按 Interpreter 配置 |
+| 学者与机构档案          | `30 - Metadata/Scholars`、`30 - Metadata/Institutes` | 学者、机构及二者关系可打开和核对                             |
+| 概念卡              | `10 - Cards/Concepts`                               | 概念卡能够连接测试文献、学者或输出                            |
+| PaperOut 项目      | `50 - Outputs/Longform`                             | 写作项目及 Main Manuscript 等组件已经创建                |
+| Word 或 PDF       | PaperOut 设置的导出位置                                    | Pandoc 工作流成功结束，文件可以实际打开并检查                   |
 
 ## 阅读顺序
 

@@ -1,7 +1,7 @@
 ---
 title: Obsidian Web Clipper
 description: 使用 PaperBell Scholar clipper 模板从公开网页自动创建学者档案
-status: draft
+status: published
 order: 5
 ---
 
