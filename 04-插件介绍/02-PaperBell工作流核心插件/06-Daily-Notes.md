@@ -1,7 +1,7 @@
 ---
 title: Daily Notes 日记模块
 description: 配置 Obsidian 核心 Daily Notes，统一 PaperBell 日记的目录、日期格式与模板
-status: draft
+status: published
 order: 6
 ---
 

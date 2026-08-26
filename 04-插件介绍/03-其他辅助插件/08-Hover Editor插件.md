@@ -1,3 +1,12 @@
+---
+title: Hover Editor
+description: 介绍 Hover Editor 的可编辑悬浮预览及其在关联笔记间的使用方式
+status: published
+order: 8
+---
+
+# Hover Editor
+
 **【开源链接】**
 <https://github.com/nothingislost/obsidian-hover-editor>
 
@@ -15,4 +24,4 @@ PaperBell 库里笔记之间引用密集------一篇机构笔记常会链到多�
 
 ---
 
-[上一篇：Homepage](08-Homepage插件.md) · [返回插件总览](../index.md) · [下一篇：Map View](10-Map%20View插件.md)
+[上一篇：Homepage](07-Homepage插件.md) · [返回插件总览](../index.md) · [下一篇：Map View](09-Map%20View插件.md)

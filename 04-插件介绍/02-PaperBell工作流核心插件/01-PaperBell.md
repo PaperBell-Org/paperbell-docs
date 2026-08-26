@@ -1,13 +1,13 @@
 ---
 title: PaperBell 主插件
 description: 使用 PaperBell 主插件激活主插件与子插件，并集中保存大模型 API 配置
-status: draft
+status: published
 order: 1
 ---
 
 # PaperBell 主插件
 
-PaperBell 主插件是整个 PaperBell 插件体系的宿主和授权中心。它现在只负责两件事：
+PaperBell 主插件 `0.4.8` 是整个 PaperBell 插件体系的宿主和授权中心。它现在只负责两件事：
 
 | 职责 | 作用 |
 | --- | --- |

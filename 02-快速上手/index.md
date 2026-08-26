@@ -1,7 +1,7 @@
 ---
 title: 第二部分：快速上手
 description: 完成必要安装与首次配置，并用一组测试数据跑通从网页采集到 Pandoc 首次导出的完整科研闭环
-status: draft
+status: published
 order: 2
 ---
 
@@ -13,8 +13,6 @@ order: 2
 > **软件能不能正常运行？命令在哪里？执行后产生了什么文件？这些文件能不能继续进入下一步？**
 >
 > 工作流为什么这样设计、字段怎样协作、有哪些替代方案和排错方法，将在[第三部分：详细教程](../03-详细教程/index.md)中解释。
-
-{>>整个第二部分从头到尾用 `10 - Cards` / `20 - Inputs` / `30 - Metadata` / `40 - Projects` / `50 - Outputs` 指路，但一次都没说这五个编号目录是一套有名字的结构（CIMPO），读者只会当成随意的编号。建议在上面这个 callout 里补一句：「这五个编号目录对应 PaperBell 的 CIMPO 结构，现在只当成五个抽屉用即可，含义见[CIMPO 学术生涯管理框架](../03-详细教程/01-CIMPO-学术生涯管理框架.md)」。一句话 + 一个链接，既不打断上手节奏，又能让读者知道这里有设计而不是巧合<<}
 
 ## 整体路线
 
@@ -38,16 +36,16 @@ flowchart TB
 
 ## 完成后的可检查结果
 
-| 结果 | 默认位置 | 最小验收 |
-| --- | --- | --- |
-| 测试项目 | `40 - Projects/<项目名>` | 项目主页包含稳定的 `acronym`，测试任务带有对应项目标签 |
-| Zotero 文献笔记 | `20 - Inputs/Zotero` | 文件名、`citekey`、作者、关键词和批注区可检查 |
-| 当天日记 | `30 - Metadata/DailyNote` | Thino 内容写入 `## 日程`，项目任务仍是普通 Markdown 任务 |
-| Web Clipper 网页采集 | `20 - Inputs`，随后由 Inputs Bell 归位 | 通用网页剪藏成功；Scholar 模板已导入，自动路径可按 Interpreter 配置继续验收 |
-| 学者与机构档案 | `30 - Metadata/Scholars`、`30 - Metadata/Institutes` | 学者、机构及二者关系可打开和核对 |
-| 概念卡 | `10 - Cards/Concepts` | 概念卡能够连接测试文献、学者或输出 |
-| PaperOut 项目 | `50 - Outputs/Longform` | 写作项目及 Main Manuscript 等组件已经创建 |
-| Word 或 PDF | PaperOut 设置的导出位置 | Pandoc 工作流成功结束，文件可以实际打开并检查 |
+| 结果               | 默认位置                                                | 最小验收                                         |
+| ---------------- | --------------------------------------------------- | -------------------------------------------- |
+| 测试项目             | `40 - Projects/<项目名>`                               | 项目主页包含稳定的 `acronym`，测试任务带有对应项目标签             |
+| Zotero 文献笔记      | `20 - Inputs/Zotero`                                | 文件名、`citekey`、作者、关键词和批注区可检查                  |
+| 当天日记             | `30 - Metadata/DailyNote`                           | Thino 内容写入 `## 日程`，项目任务仍是普通 Markdown 任务      |
+| Web Clipper 网页采集 | `20 - Inputs`，随后由 Inputs Bell 归位                    | 通用网页剪藏成功；Scholar 模板已导入，自动路径可按 Interpreter 配置 |
+| 学者与机构档案          | `30 - Metadata/Scholars`、`30 - Metadata/Institutes` | 学者、机构及二者关系可打开和核对                             |
+| 概念卡              | `10 - Cards/Concepts`                               | 概念卡能够连接测试文献、学者或输出                            |
+| PaperOut 项目      | `50 - Outputs/Longform`                             | 写作项目及 Main Manuscript 等组件已经创建                |
+| Word 或 PDF       | PaperOut 设置的导出位置                                    | Pandoc 工作流成功结束，文件可以实际打开并检查                   |
 
 ## 阅读顺序
 

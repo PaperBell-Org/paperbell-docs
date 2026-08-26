@@ -1,3 +1,12 @@
+---
+title: Claudian
+description: 介绍 Claudian 的 AI 代理接入、权限边界与 PaperBell 协作建议
+status: published
+order: 4
+---
+
+# Claudian
+
 **【开源链接】**
 <https://github.com/YishenTu/claudian>
 
@@ -34,7 +43,7 @@ Claudian 可能把提示词、引用文件、图片和工具返回结果发送�
 
 **【PaperBell 当前配置】**
 
-当前库安装的是 Claudian `2.0.41`，主要配置为：
+当前库安装的是 Claudian `2.2.3`，主要配置为：
 
 | 项目 | 当前状态 | 说明 |
 | --- | --- | --- |

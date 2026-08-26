@@ -1,11 +1,13 @@
 ---
 title: Thino
 description: 使用 Thino 快速捕获闪念，并把项目、概念和任务记录写回 PaperBell 当天日记
-status: draft
+status: published
 order: 7
 ---
 
 # Thino
+
+
 
 Thino 是 PaperBell 的快速捕获入口。它把临时灵感、现场判断和行动写回普通 Markdown 日记，因此即使不打开 Thino，数据仍然可以在 Obsidian 中阅读、搜索和链接。
 
@@ -43,9 +45,6 @@ Thino 的界面可能使用英文。PaperBell 只需要确认以下设置：
 - 09:58 正式发布前还需要完成一次检查 #project/paperbell #想法
 ```
 
-> [!warning] 不要继续使用遗留的 Periodic 配置
-> PaperBell 当前使用 Obsidian 核心 Daily Notes，并没有依赖 Periodic Notes。旧设备或旧配置如果仍显示 `Periodic`，请切换为 `Daily`，否则可能产生第二份日记或写入错误位置。
-
 ## 一、Thino 与 Daily Notes 的分工
 
 | Thino | Daily Notes |
@@ -53,12 +52,6 @@ Thino 的界面可能使用英文。PaperBell 只需要确认以下设置：
 | 提供快速输入框 | 决定当天文件名 |
 | 给记录添加时间、标签和状态 | 决定日记目录与模板 |
 | 搜索、筛选、回顾和归档闪念 | 保存最终 Markdown 原文 |
-
-Thino 不应维护另一套日期目录。关闭独立设置后，它会跟随 Daily Notes 的：
-
-```text
-30 - Metadata/DailyNote/YYYY年MM月DD日.md
-```
 
 ## 二、打开 Thino
 
@@ -112,6 +105,8 @@ Thino 支持 Obsidian 原生多级标签，因此 `#project/flood-risk` 可以�
 删除行为会受 Thino 设置影响。重要记录应先确认已经转入项目、概念卡或输出，再决定是否删除。
 
 ## 六、最小验收
+
+
 
 1. 用 Thino 保存一条包含唯一测试词的 List；
 2. 确认它进入当天日记的 `## 日程`；

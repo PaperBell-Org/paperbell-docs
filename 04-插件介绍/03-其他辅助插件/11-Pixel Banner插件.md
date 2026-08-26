@@ -1,11 +1,20 @@
+---
+title: Pixel Banner
+description: 介绍 Pixel Banner 的笔记横幅来源、设置与视觉展示用途
+status: published
+order: 11
+---
+
+# Pixel Banner
+
 **【开源链接】**
 <https://github.com/jparkerweb/pexels-banner>
 
 **【简介】**
-这个插件能给笔记顶部加一张漂亮的"横幅大图"（就像博客文章顶部那种封面图）。图片可以自己上传，也可以让它从图库里按关键词自动搜（本库接的是 Unsplash 图库），甚至能用 AI 生成。加上横幅后，笔记看起来更有辨识度、更美观，翻阅时也更容易一眼认出是哪篇。一句话：**给笔记顶部配一张封面图，让笔记既好看又好认。**
+这个插件能给笔记顶部加一张漂亮的"横幅大图"（就像博客文章顶部那种封面图）。图片可以自己上传，也可以让它从图库里按关键词自动搜，甚至能用 AI 生成。加上横幅后，笔记看起来更有辨识度、更美观，翻阅时也更容易一眼认出是哪篇。一句话：**给笔记顶部配一张封面图，让笔记既好看又好认。**
 
 **【使用方法】**
-1. 在插件设置里选好图片来源（本库用的是 Unsplash 图库）。
+1. 在插件设置里选好图片来源。
 2. 给某篇笔记加横幅：在它的属性里填一个 `banner` 字段，值可以是本地图片路径、网址，或搜索关键词。
 3. 也可以直接按 `Ctrl+P` 搜 "Pixel Banner"，用命令面板挑图。
 4. 加好后，还能在设置里调横幅的高度和显示位置（本库默认横向居中、纵向偏上）。
@@ -15,4 +24,4 @@ PaperBell 产出的机构、学者笔记数量多、长得又都差不多，翻�
 
 ---
 
-[上一篇：Minimal Theme Settings](11-Minimal%20Theme%20Settings插件.md) · [返回插件总览](../index.md) · [下一篇：Recent Files](13-Recent%20Files插件.md)
+[上一篇：Minimal Theme Settings](10-Minimal%20Theme%20Settings插件.md) · [返回插件总览](../index.md) · [下一篇：Recent Files](12-Recent%20Files插件.md)

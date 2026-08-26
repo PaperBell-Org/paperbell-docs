@@ -1,3 +1,12 @@
+---
+title: Admonition
+description: 介绍 Admonition 的提示块、自定义类型及其在 PaperBell 旧模板中的展示职责
+status: published
+order: 1
+---
+
+# Admonition
+
 **【开源链接】**
 <https://github.com/ebullient/obsidian-admonition>
 

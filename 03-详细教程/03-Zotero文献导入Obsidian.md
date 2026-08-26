@@ -1,99 +1,73 @@
 ---
 title: Zotero文献导入 Obsidian
-description: 使用 Zotero Connector 和文献管理插件，将在线文献、PDF 与批注落地为 Obsidian 笔记
-status: draft
+description: 使用 Zotero Connector、Better BibTeX 与 ZotLit 2.1.0-beta.3 将文献和批注导入 Obsidian
+status: published
 order: 3
 ---
 
 # Zotero文献导入 Obsidian
 
-这里的“导入”包括先用 Zotero Connector 将在线文献和 PDF 保存到 Zotero，再以 Zotero 为文献权威数据源，将条目元数据、引用键、PDF 附件与批注转换成 Obsidian 中可继续编辑的 Markdown 文献笔记。
+这里的“导入”是先用 Zotero Connector 将在线文献和 PDF 保存到 Zotero，再由 ZotLit 2.1.0-beta.3 读取 Zotero 数据，通过 Eta 模板生成可继续编辑的 Markdown 文献笔记。
 
-## 五个核心组件与一个可选配色插件
+## 一、组件与当前路径
 
-| 位置 | 插件 | 职责 |
+| 位置 | 组件 | 职责 |
 | --- | --- | --- |
-| 浏览器 | [Zotero Connector](../04-插件介绍/01-Obsidian外插件/01-Zotero-Connector.md) | 从网页抓取文献元数据和可访问的 PDF，保存到 Zotero |
-| Zotero | [Better BibTeX](../04-插件介绍/01-Obsidian外插件/02-Better-BibTeX.md) | 管理稳定的 citation key，导出 BibTeX/BibLaTeX |
-| Zotero | [ZotLit Companion](../04-插件介绍/01-Obsidian外插件/03-ZotLit-Companion.md) | 为 Zotero 提供快捷命令、协议链接和可选的实时通知 |
-| Zotero（可选） | [Ethereal Style](../04-插件介绍/01-Obsidian外插件/04-Ethereal-Style.md) | 统一批注颜色语义，并与 ZotLit 的颜色分组模板配合 |
-| Obsidian | [ZotLit](../04-插件介绍/02-PaperBell工作流核心插件/05-ZotLit.md) | 读取 Zotero 数据库，通过 Liquid 模板生成和更新文献笔记 |
-| Obsidian | [Inputs Bell](../04-插件介绍/02-PaperBell工作流核心插件/02-Inputs-Bell.md) | 在笔记落地后做字段归一化、图片本地化、校对和归位 |
+| 浏览器 | [Zotero Connector](../04-插件介绍/01-Obsidian外插件/01-Zotero-Connector.md) | 保存网页元数据和可访问的 PDF |
+| Zotero | [Better BibTeX](../04-插件介绍/01-Obsidian外插件/02-Better-BibTeX.md) | 管理稳定 citekey，导出 BibTeX/BibLaTeX |
+| Zotero | [ZotLit Companion](../04-插件介绍/01-Obsidian外插件/03-ZotLit-Companion.md) | 提供 Zotero 侧命令与协议链接 |
+| Zotero（可选） | [Ethereal Style](../04-插件介绍/01-Obsidian外插件/04-Ethereal-Style.md) | 统一批注颜色语义 |
+| Obsidian | [ZotLit](../04-插件介绍/02-PaperBell工作流核心插件/05-ZotLit.md) | 从 Zotero 创建文献笔记和插入引用 |
+| Obsidian | [Inputs Bell](../04-插件介绍/02-PaperBell工作流核心插件/02-Inputs-Bell.md) | 对落地笔记做归一化、图片本地化和归位 |
 
-```mermaid
-flowchart LR
-    H[浏览器中的文献页面] --> I[Zotero Connector\n元数据与 PDF]
-    I --> A[Zotero 条目与 PDF]
-    A --> B[Better BibTeX\ncitation key / bibliography]
-    A --> G[Ethereal Style\n可选：统一批注颜色语义]
-    A --> C[ZotLit Companion\n发起创建或实时通知]
-    C --> D[Obsidian ZotLit\n读取数据库与渲染模板]
-    B --> D
-    G --> D
-    D --> E[20 - Inputs/Zotero\nMarkdown 文献笔记]
-    E --> F[Inputs Bell\n检查、修复、归位]
+发布包中的关键配置是：
+
+```text
+ZotLit 版本：2.1.0-beta.3
+文献笔记目录：20 - Inputs/Zotero
+模板目录：00 - Obsidian/模板
+库范围：personal library
 ```
 
-## 一、确认前置组件配置正确
+## 二、准备 Zotero 条目
 
-这里不再重复每个插件的具体设置，只确认整条链路已经具备运行条件。某一项未通过时，先返回对应的插件介绍排查，不要直接进入文献笔记创建步骤。
+1. 打开 Zotero 桌面端并选择目标 collection。
+2. 在文献详情页使用 Zotero Connector 保存父条目和 PDF。
+3. 确认标题、作者、日期、期刊等元数据正确。
+4. 确认 PDF 是父条目下的附件，而不是孤立附件。
+5. 在 PDF 中新建至少一条高亮或评论，用于验证批注导入。
+6. 确认 Better BibTeX citekey 已生成，并在写作期间保持稳定。
 
-| 组件 | 抓取文献前应确认 |
+> [!important] 只选一个 citekey 权威来源
+> 不要让 Zotero 原生键、Better BibTeX 键和手工键同时变化。PaperBell 的 Eta 字段模板直接读取 ZotLit 提供的 `it.citekey`。
+
+## 三、认识七个 Eta 模板
+
+`00 - Obsidian/模板` 中当前共有七个 ZotLit Eta 模板：
+
+| 模板 | 用途 |
 | --- | --- |
-| [Zotero Connector](../04-插件介绍/01-Obsidian外插件/01-Zotero-Connector.md) | 浏览器扩展已启用，并能连接正在运行的 Zotero 桌面端 |
-| [Better BibTeX](../04-插件介绍/01-Obsidian外插件/02-Better-BibTeX.md) | 插件已启用，citation key 格式和 `.bib` 自动导出位置已经确定 |
-| [ZotLit Companion](../04-插件介绍/01-Obsidian外插件/03-ZotLit-Companion.md) | Zotero 中能看到 ZotLit 命令，并可以唤起 Obsidian |
-| [Ethereal Style](../04-插件介绍/01-Obsidian外插件/04-Ethereal-Style.md)（可选） | 已按教程确定批注颜色与语义的对应关系 |
-| [ZotLit](../04-插件介绍/02-PaperBell工作流核心插件/05-ZotLit.md) | Zotero 数据库连接、模板目录和文献笔记目录已经配置，`Refresh index` 能正常完成 |
-| [Inputs Bell](../04-插件介绍/02-PaperBell工作流核心插件/02-Inputs-Bell.md) | 监听目录和后处理脚本已经确认；首次验收 ZotLit 时可以暂时停用 |
+| `zt-field.eta.md` | 生成 YAML 字段 |
+| `zt-note.eta.md` | 生成文献笔记正文骨架 |
+| `zt-annot.eta.md` | 渲染单条批注 |
+| `zt-annots.eta.md` | 汇总批注 |
+| `zt-colored.eta.md` | 按颜色组织批注 |
+| `zt-cite.eta.md` | 引用文本模板 |
+| `zt-cite2.eta.md` | 第二种引用文本模板 |
 
-全部通过后，再开始抓取测试文献。这样出现问题时，能够明确判断故障发生在网页抓取、Zotero 数据、Companion 通信、ZotLit 渲染还是后处理阶段。
+### `zt-field.eta.md` 当前生成的字段
 
-## 二、抓取并准备 Zotero 条目
+模板生成以下内容：
 
-1. 打开 Zotero 桌面端，并选中目标 collection。
-2. 在浏览器中打开出版社或数据库的文献详情页，使用 Zotero Connector 保存条目和 PDF。
-3. 确认父文献条目包含标题、作者、日期和期刊等基本元数据。
-4. 确认 PDF 是父条目下的附件，不要把它留作孤立文件。
-5. 在 PDF 中新建至少一条高亮，最好再添加一条评论，便于验证批注链路。
-6. 确认 citation key 已经生成，并在后续写作期间保持稳定。
+- `title`、`citekey`、`cate: 论文`；
+- `tags`：固定含 `paper`，并接收 Zotero 中以 `#` 开头的标签（移除 `#`）；
+- `keywords`：普通 Zotero 标签，但排除阅读状态、来源状态和星标；
+- `read`：以 `浏览`、`初读`、`精读` 结尾的标签；
+- `source`：以 `更新`、`推荐`、`关联`、`检索` 结尾的标签；
+- `authors`、`journal`、`paper_date`、`date`；
+- `important`：仅当标签为 `🌟星标` 时为 `True`。
 
-> [!important] 只选一个 citation key 权威来源
-> Zotero 新版本已提供原生 citation key 字段，Better BibTeX 也会管理和导出引用键。不要让原生键、Better BibTeX 键和手工键同时变动。
-
-## 三、连接 Zotero 标签与 Obsidian YAML
-
-Zotero 条目中的标签不需要全部挤进 Obsidian 的 `tags`。PaperBell 会根据标签的写法，把它们分别转换成文献笔记 YAML 区中的 `tags`、`keywords`、`read`、`source` 和 `important`。
-
-### 1. 先在 Zotero 中遵守标签约定
-
-| Zotero 标签 | Obsidian YAML 字段 | 用途 |
-| --- | --- | --- |
-| `#project/PaperBell` 等以 `#` 开头的标签 | `tags` | Obsidian 标签；导入时移除开头的 `#` |
-| `社会水文学` 等普通标签 | `keywords` | 输入端自由生长的检索关键词 |
-| 以 `浏览`、`初读`、`精读` 结尾的标签 | `read` | 阅读进度 |
-| 以 `更新`、`推荐`、`关联`、`检索` 结尾的标签 | `source` | 文献来源或发现方式 |
-| `🌟星标` | `important` | 是否为重要文献 |
-
-同一个标签只应该承担一种职责。例如 `精读` 已经进入 `read`，不会再次进入 `keywords`；`🌟星标` 只负责生成布尔值，不应污染关键词列表。
-
-> [!important] 论文只携带关键词，不直接挂概念
-> 论文属于 CIMPO 的输入层，因此只保存自由关键词 `keywords`。受控概念由 **Cards Wrangler** 通过概念卡的 `name` 和 `aliases` 统一管理，不要在这里把每个 Zotero 标签直接转换成 `concepts`。
-
-### 2. 在 ZotLit 中配置 Managed Frontmatter
-
-打开 **[ZotLit](../04-插件介绍/02-PaperBell工作流核心插件/05-ZotLit.md)** 设置，确认 **JavaScript Templates** 已开启，并确认 **Managed Frontmatter** 中已经存在 `tags`、`keywords`、`read`、`source` 和 `important` 五个字段。
-
-> [!note] 与旧教程的区别
-> 旧版教程通过 `zt-field.eta.md` 生成 YAML；当前 ZotLit v2 已把这部分迁移到设置页的 **Managed Frontmatter**。这里保留原有标签分流逻辑，但不再要求用户编辑旧版字段模板。
-
-PaperBell 示例库已经预设了这五个字段，一般不需要在这里重新填写表达式。只需确认它们存在，并用上一节的标签约定做一次测试即可。
-
-Managed Frontmatter 一共还会生成 `title`、`cate`、`authors`、`journal`、`paper_date` 和 `date`。全部 11 个字段的 JavaScript 表达式、合并方式和修改方法，见 **[ZotLit 模板自定义](../05-高级定制/01-ZotLit模板自定义.md)**。
-
-### 3. 看懂转换结果
-
-假设一个 Zotero 条目带有以下标签：
+例如，Zotero 标签为：
 
 ```text
 #project/PaperBell
@@ -103,80 +77,63 @@ Managed Frontmatter 一共还会生成 `title`、`cate`、`authors`、`journal`�
 🌟星标
 ```
 
-创建或更新文献笔记后，Obsidian YAML 应得到：
+渲染结果应包含：
 
 ```yaml
-tags:
-  - paper
-  - project/PaperBell
-keywords:
-  - 社会水文学
-read:
-  - 精读
-source:
-  - 检索
-important: true
+tags: [paper, "project/PaperBell"]
+keywords: ["社会水文学"]
+read: ["精读"]
+source: ["检索"]
+important: True
 ```
 
-由于这些字段的合并方式是 `replace`，再次执行元数据更新时，ZotLit 会按 Zotero 当前标签重新生成它们。需要长期保留的分类应优先回到 Zotero 修改，不要只在 Obsidian 的这些托管字段中手工添加。
+需要长期保留的分类应优先回到 Zotero 修改，再重新渲染；不要把模板控制的字段当成只在 Obsidian 中维护的自由字段。
 
-标签映射不需要单独再导出一次。完成上述准备后，直接在下一节执行第一次 Zotero → Obsidian 导出，并在生成结果中同时验收 YAML 与正文。
+## 四、导出真实 ZotLit 文献笔记
 
-## 四、导出第一篇文献笔记
+1. 在 Zotero 中选中正确的父条目或 PDF 附件。
+2. 在 ZotLit 中执行 `Refresh index`。
+3. 使用 ZotLit Companion 的创建命令，或在 Obsidian 中通过 ZotLit 选择条目并创建 literature note。
+4. 打开 `20 - Inputs/Zotero` 中新生成的文件。
 
-1. 给测试条目添加一个普通关键词、一个阅读状态和 `🌟星标`，用于同时检查标签映射。
-2. 在 Zotero 中选中正确的父条目或其 PDF 附件。
-3. 在 ZotLit 中执行 `Refresh index`，让刚才修改的标签和批注进入索引。
-4. 使用 ZotLit Companion 提供的创建文献笔记命令，或在 Obsidian 中使用 ZotLit 文献笔记快速切换器，选择目标条目并等待 Markdown 文件创建。
+真实导入的文献笔记应按当前模板验收：
 
-预期产物是：
+- YAML 中至少有 `title`、`citekey`、`tags`、`cate`、`keywords`、`read`、`source`、`authors`、`journal`、`paper_date`、`date`、`important`；
+- `citekey` 与 Zotero/Better BibTeX 当前数据一致；
+- 正文含 Zotero、附件和期刊链接表；
+- `## Annotations` 下的批注与 Zotero 一致；
+- 文件位于 `20 - Inputs/Zotero`。
 
-```text
-20 - Inputs/Zotero/<citationKey>.md
-```
+> [!note] 不要用静态演示笔记反推 ZotLit 契约
+> 发布包在 `20 - Inputs/Zotero` 附带六篇中文标题的静态演示笔记，例如 `CIMPO：一种以输出为导向的学术知识管理方法.md`。它们用于展示 PaperBell 的输入层，不一定是本机 ZotLit 实际导入的产物，可能缺少 citekey 或其他 ZotLit 管理信息。验收模板时请新导入一条真实 Zotero 记录，不要要求演示笔记补齐这些标记。
 
-例如：
 
-```text
-20 - Inputs/Zotero/2026_SongShuang_导出学术文档Latex版.md
-```
-{>>这个示例文件名在示例库里不存在，`20 - Inputs/Zotero/` 下的演示文献是中文标题（如「CIMPO：一种以输出为导向的学术知识管理方法」「卡片盒笔记法与知识的涌现」）。读者对照库里看会找不到。我没有替换成库里的名字——因为这里想演示的是「作者_年份_标题」这种 citekey 风格的文件名，而示例库的演示笔记恰好不是这个风格，两边到底以哪个为准得你来定<<}
+## 五、新增批注后更新
 
-## 五、验收生成结果
+1. 在 Zotero PDF 阅读器中新建高亮或评论。
+2. 回到 Obsidian 后刷新 ZotLit 索引。
+3. 对已有文献笔记执行 ZotLit 的更新 literature note 操作。
+4. 检查 `## Annotations`，并确认手写内容未被误放到模板会重建的区域。
 
-打开文献笔记，依次确认：
+模板职责应分开排查：正文骨架看 `zt-note.eta.md`，单条批注看 `zt-annot.eta.md`，批注汇总看 `zt-annots.eta.md`，颜色分组看 `zt-colored.eta.md`，YAML 看 `zt-field.eta.md`。
 
-- Frontmatter 包含 `zotero-key` 与 `citekey`；
-- 文件名与 `citekey` 一致；
-- `tags`、`keywords`、`read`、`source` 和 `important` 与 Zotero 标签的分流结果一致；
-- Zotero、PDF 与期刊信息可用；
-- 正文包含 `%%zt-managed%%` 和 `%%/zt-managed%%`；
-- `## Annotations` 下的批注数与 Zotero 一致；
-- Inputs Bell 没有误删 ZotLit 生成的字段或变更错误的目录。
+## 六、Inputs Bell 的边界
 
-## 六、新增批注后如何更新
+Inputs Bell 当前启用 `normalize-frontmatter`、`localize-images`、`move-by-frontmatter`、`link-institution` 四个脚本。`move-by-frontmatter` 会把带 `zotero-key` 或 `citekey` 的输入归到 `20 - Inputs/Zotero`。
 
-1. 在 Zotero PDF 阅读器中新建一条高亮或评论。
-2. 回到 Obsidian，等待自动监视，或手动 `Refresh index`。
-3. 对已有笔记执行 `Update literature note`。
-4. 需要更新 Frontmatter 时，另行执行 `Update literature note metadata`。
-
-ZotLit 只更换 `%%zt-managed%%` 区域内的正文。不要手工删除管理标记，也不要把需要长期保留的手写内容放在该区域内。
+`verify-zotero` 虽然已安装并配置本地 API `http://localhost:23119`，但当前**未启用**。首次验收 ZotLit 时若字段或路径异常，可以暂时停用 Inputs Bell，先验证 ZotLit 的原始渲染，再逐个恢复后处理。
 
 ## 七、最小排错顺序
 
-| 现象                             | 先检查                                              |
-| ------------------------------ | ------------------------------------------------ |
-| 搜索不到新文献                        | ZotLit 数据库路径与 `Refresh index`                    |
-| 有元数据，但整个批注区不存在                 | {~~`zotlit-note.liquid.md`~>`zt-note.eta.md`~~} 是否渲染 `content`{>>⚠️ 模板文件名整体对不上：示例库 `00 - Obsidian/模板/` 下的 ZotLit 模板是 **`zt-*.eta.md`** 七个文件（`zt-note` `zt-field` `zt-annot` `zt-annots` `zt-cite` `zt-cite2` `zt-colored`），不是 `zotlit-*.liquid.md`——既不是这个前缀，也不是 liquid 后缀（ZotLit 2.x 用的是 Eta 模板引擎）。读者按 `zotlit-` 去模板目录找会一个都找不到。同样的错误在 04-插件介绍/02-.../05-ZotLit.md 和 05-高级定制/01-ZotLit模板自定义.md 里也有<<}           |
-| 有 `## Annotations` 但某些批注异常     | {~~`zotlit-annotation.liquid.md`~>`zt-annot.eta.md`（单条）/ `zt-annots.eta.md`（按高亮颜色分组）~~} 及单条批注数据            |
-| Frontmatter 缺失                 | JavaScript Templates 开关与 Managed Frontmatter 表达式 |
-| 文件名是标题而非 citekey               | {~~`zotlit-filename.liquid.md` 的回退顺序~>ZotLit 设置里的文件名模板~~}{>>模板目录里**没有**文件名模板这个文件（七个 `zt-*.eta.md` 里不含 filename），ZotLit 2.x 的文件名规则应该存在插件设置里而不是模板文件。这条排错指引会让读者去找一个不存在的文件——具体入口请你按实际界面确认<<}                |
-| ZotLit 正常，Inputs Bell 后字段或路径变了 | 暂停 Inputs Bell，单独验收 ZotLit，再逐个开启后处理脚本            |
-|                                |                                                  |
-
-> [!note] 一个容易误解的开关
-> `import-annotations-as-template` 控制的是 Zotero 笔记导入时的批注段落渲染，它不是文献笔记中 `zt.annotations` 的总开关。文献笔记整个批注区消失时，不要只围绕该开关反复测试。
+| 现象 | 先检查 |
+| --- | --- |
+| 搜索不到新文献 | Zotero 数据库连接、library scope 与 `Refresh index` |
+| YAML 缺失或映射错误 | `00 - Obsidian/模板/zt-field.eta.md` |
+| 整个正文或批注标题缺失 | `zt-note.eta.md` 是否渲染 `it.annotations` |
+| 单条批注异常 | `zt-annot.eta.md` 与该条批注数据 |
+| 颜色分组异常 | `zt-annots.eta.md` / `zt-colored.eta.md` |
+| citekey 不正确 | Better BibTeX 与 ZotLit 索引中的 citekey |
+| ZotLit 正常但路径变化 | Inputs Bell 的 `move-by-frontmatter` 规则 |
 
 ---
 

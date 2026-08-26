@@ -1,3 +1,12 @@
+---
+title: Homepage
+description: 介绍 Homepage 的启动页和工作区入口，以及 PaperBell 当前主工作区配置
+status: published
+order: 7
+---
+
+# Homepage
+
 **【开源链接】**
 <https://github.com/mirnovov/obsidian-homepage>
 
@@ -14,4 +23,4 @@ PaperBell 库内容多、层级深，每次都要重新找入口很费神。Home
 
 ---
 
-[上一篇：Floating TOC](07-Floating%20toc插件.md) · [返回插件总览](../index.md) · [下一篇：Hover Editor](09-Hover%20Editor插件.md)
+[上一篇：Floating TOC](06-Floating%20toc插件.md) · [返回插件总览](../index.md) · [下一篇：Hover Editor](08-Hover%20Editor插件.md)

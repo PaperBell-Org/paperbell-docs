@@ -1,7 +1,7 @@
 ---
 title: 下载并打开 PaperBell
 description: 下载完整发布包，打开正确的库根目录，并完成插件启用、Web Clipper 连接与首次导出准备
-status: draft
+status: published
 order: 3
 ---
 
@@ -9,7 +9,7 @@ order: 3
 
 ## 本页目标
 
-本页完成七件事：下载完整发布包、识别真正的 vault 根目录、启用首次闭环需要的组件、完成 PaperBell 激活、连接 Web Clipper、安装 PaperOut 导出资产，以及确认关键命令已经注册。
+本页完成七件事：下载完整发布包、识别真正的 vault 根目录、启用首次闭环需要的组件、完成 PaperBell 激活、连接 Web Clipper、检查发布包自带的 PaperOut 导出资产并按需补齐，以及确认关键命令已经注册。
 
 预计用时：**20–30 分钟**。第一次加载插件、建立索引或下载导出资产可能更久。
 
@@ -62,7 +62,7 @@ order: 3
 | Inputs Bell | 处理和归位输入笔记 |
 | Thino | 快速写入当天日记 |
 | Templater、QuickAdd | 创建学者、机构和手工概念卡 |
-| PaperBell Cards Wrangler | 自动提取和建立概念关系；无 AI 时可以改走手工路径 |
+| PaperBell Cards Wrangler 1.0.2 | 按命令处理当前笔记并建立概念关系；需先配置 LLM 宿主并完成授权，无 AI 时改走手工路径 |
 | PaperOut To-Authors | 创建写作项目和执行导出工作流 |
 
 同时进入“设置 → 核心插件”，确认 **Daily Notes** 已启用。
@@ -112,11 +112,11 @@ Scholar 模板会使用 Web Clipper Interpreter 处理不同网站上不统一�
 2. 确认 Pandoc assets folder 为 `00 - Obsidian/pandoc`；
 3. 执行 `设置 Pandoc 导出`，确认三个系统工具都通过检查；
 4. 打开 `浏览 Pandoc 资产市场`；
-5. 为最省事的首次体验，安装 **Full Pandoc toolchain**；如果只安装单个套件，则至少安装当前 Main Manuscript 工作流要求的配方、模板、过滤器和 CSL；
-6. 返回 PaperOut 设置，确认资产不再显示缺失。
+5. 只有当前工作流报告资产缺失，或你需要发布包之外的配方与样式时，才打开 `浏览 Pandoc 资产市场` 补装对应资产；
+6. 返回 PaperOut 设置，确认当前工作流不再显示缺失。
 
 > [!important] 两层依赖都要通过
-> 终端能运行 `pandoc`，只代表系统工具已经安装；资产市场显示“已安装”，只代表 vault 内配方存在。首次导出需要这两层同时可用。
+> 终端能运行 `pandoc`，只代表系统工具已经安装；vault 内当前配方显示可用，才代表所需资产存在。首次导出需要这两层同时可用。
 
 完整的配方选择、系统工具和排错说明见 [PaperOut To-Authors 使用指南](../03-详细教程/07-PaperOut%20To-Authors%20使用指南.md)。
 
@@ -131,7 +131,7 @@ Scholar 模板会使用 Web Clipper Interpreter 处理不同网站上不统一�
 | `Daily notes` | 打开当天日记的命令 |
 | `Thino` | 日常视图或快速输入框 |
 | `QuickAdd: 添加学者` | 手动建立学者档案 |
-| {~~`Extract Concepts`~>`Ingest current note`~~}{>>同 05-跑通第一个科研闭环.md：示例库的 Cards Wrangler 1.0.1 没有 `Extract Concepts` 这条命令，健康检查会直接失败。这里如果只想验证插件已注册，搜 `Cards Wrangler` 或 `Ingest` 更稳妥<<} | Cards Wrangler 的概念提取入口；未配置 AI 时可以暂不执行 |
+| `Ingest current note` | Cards Wrangler 1.0.2 的当前笔记处理入口；未配置 LLM 宿主或未完成授权时暂不执行 |
 | `新建 PaperBell 论文项目` | PaperOut 的论文项目创建命令 |
 | `设置 Pandoc 导出` | PaperOut 的系统工具检查入口 |
 | `浏览 Pandoc 资产市场` | PaperOut 的配方、过滤器、模板和 CSL 下载入口 |

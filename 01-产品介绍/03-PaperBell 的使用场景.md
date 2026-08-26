@@ -1,14 +1,10 @@
 ---
-cate: 讨论
-date: 2026-07-09
-tags:
-  - output
-banner: 00 - Obsidian/img/讨论.jpg
-longform: false
-concepts:
-project: PaperBell
+title: PaperBell 的使用场景
+description: 从输入、生涯管理、项目和写作场景理解 PaperBell 当前能力与路线图边界
+status: published
+order: 3
 ---
-{>>这一页的 frontmatter 是**示例库**的笔记格式（`cate` / `banner` / `longform` / `project`），不是手册其他页用的文档格式（`title` / `description` / `status` / `order`）——看得出它是从 `50 - Outputs/Drafts/PaperBell 的使用场景.md` 直接搬过来的。影响有两个：一是章节导览里它没有 `title`/`order`，排序和标题都要靠文件名兜底；二是 `banner: 00 - Obsidian/img/讨论.jpg` 指向示例库里的图片，手册仓库里没有这个文件，横幅不会显示。同样情况的还有 `01-核心设计理念.md`、`02-是否适用于你.md`、`03-详细教程/06-概念卡使用场景.md`、`07-PaperOut 协作与使用场景.md`、`05-高级定制/02`、`03`、`06-FAQ与问题反馈/01`。建议统一换成文档格式<<}
+
 # PaperBell 的使用场景
 
 > [!abstract] 这份文档是什么
@@ -23,7 +19,7 @@ project: PaperBell
 > | 🔵 **设想中** | 写在路线图里，**还没做** |
 
 > [!tip] 配套阅读
-> 框架总纲 → {~~[[CIMPO_学术生涯管理框架.md]]~>[CIMPO 学术生涯管理框架](../03-详细教程/01-CIMPO-学术生涯管理框架.md)~~}　·　导出操作 → {~~[[07-PaperOut To-Authors 使用指南]]~>[PaperOut To-Authors 使用指南](../03-详细教程/07-PaperOut%20To-Authors%20使用指南.md)~~}　·　套件协作与路线图 → {~~[[07-PaperOut 协作与使用场景]]~>[PaperOut 协作与使用场景](../03-详细教程/07-PaperOut%20协作与使用场景.md)~~}{>>三个链接都改成了相对路径。第一个原本是**死链**——手册里没有 `CIMPO_学术生涯管理框架.md` 这个文件（那是示例库 `50 - Outputs/Drafts/` 里的草稿名），手册里的正确文件是 `03-详细教程/01-CIMPO-学术生涯管理框架.md`，连字符不是下划线。后两个 wikilink 在 Obsidian 里能靠全库同名解析打开，但手册其余部分一律用相对 Markdown 链接，将来要生成静态站点时 wikilink 会全部断掉<<}
+> 框架总纲 → [CIMPO 学术生涯管理框架](../03-详细教程/01-CIMPO-学术生涯管理框架.md)　·　导出操作 → [PaperOut To-Authors 使用指南](../03-详细教程/07-PaperOut%20To-Authors%20使用指南.md)　·　套件协作与路线图 → [PaperOut 协作与使用场景](../03-详细教程/08-PaperOut%20协作与使用场景.md)
 
 ---
 
@@ -60,10 +56,11 @@ project: PaperBell
 ### 场景 3：「读完一篇论文，不想手动打标签」
 
 > [!success] 🟢 已实现
-> **Zotero + ZotLit** 导入 → `20 - Inputs/Zotero`，Zotero 的标签直接落成 `keywords`。
-> **Cards Wrangler** 用 LLM 把这些关键词/实体沉淀成词条、按 `aliases` 合并变体、维护双链。
+> **Zotero + ZotLit** 导入 → `20 - Inputs/Zotero`；Zotero 的标签直接落成 `keywords`。
+> 
+> **Cards Wrangler 1.0.2** 在已配置 LLM 宿主且完成授权后，可把这些关键词/实体沉淀成词条、按 `aliases` 合并变体、维护双链；默认由用户确认回写，不会自动监听新笔记。
 >
-> 👉 **导入新材料的额外成本 ≈ 0**——因为连接的活儿全在 Cards 一侧做。
+> 👉 文献导入本身不要求做受控概念标注；需要更新概念网络时，再由你主动运行 Cards Wrangler 并确认结果。
 
 > [!important] 这里的关键设计
 > 论文**只带 `keywords`，不带 `concepts`**。你永远不需要在导入时做"受控概念标注"这种苦差事。
@@ -130,8 +127,8 @@ project: PaperBell
 ### 场景 7：「开始写一篇论文」
 
 > [!success] 🟢 已实现
-> 文件夹右键 →「新建 PaperBell 论文项目…」→ 一次生成**四份草稿**（主手稿 / 补充材料 / 回复信 / 投稿信），共享一份 `metadata.json`。
-> 从资产市场装 `Full Pandoc toolchain` → 批量编译看板一键导出 PDF。
+> 文件夹右键 →「新建 PaperBell 论文项目…」→ 默认只创建 Main Manuscript；补充材料、回复信和投稿信按需勾选或后续添加。项目根目录提供共享 `metadata.json`，补充材料另有就近生效的 `supplementary/metadata.json`。
+> 新手最省事：从资产市场一键安装 `Full Pandoc toolchain`，再用批量编译看板导出 PDF。发布包 `00 - Obsidian/pandoc` 已内置基础 defaults、filters、templates 和 Nature CSL，因此资产市场不是每位用户的必经步骤；只有当默认工作流报告缺失资产，或需要发布包之外的配方与样式时，才需要手动补装。
 >
 > 起步内容**演示了所有写作约定**（图表交叉引用、`{{占位符}}`、`[@引用]`），照着改即可。
 
@@ -140,7 +137,7 @@ project: PaperBell
 > | --- | --- |
 > | 作者/机构/通讯作者怎么排版 | `metadata.json` 的 `creators` → 编译时生成 `authors:` 块 |
 > | 图表编号、交叉引用 | pandoc-crossref；补充材料自动加 S 前缀 |
-> | 引用样式（Nature/APA…） | 从资产市场装对应 CSL |
+> | 引用样式（Nature/APA…） | 优先使用发布包内已有 CSL；缺少目标样式时再从资产市场补装 |
 > | 回复信引用"手稿第几行" | 先编译主手稿 → sidecar 抓行号/图号 |
 > | 分析结果数字要同步 | `results.json` + 正文写 `{{ summary.n }}` |
 
@@ -177,7 +174,7 @@ project: PaperBell
 | --- | :---: |
 | 网页剪藏自动归一化 | 🟢 |
 | 学者/机构通讯录 + 地图 | 🟢 |
-| 论文导入零成本（Zotero → keywords → 词条） | 🟢 |
+| 论文导入与概念维护（Zotero → keywords；Cards Wrangler 按需处理） | 🟡 |
 | 词条自由生长 + 精选有界 | 🟢 |
 | 项目卡片 / stage 单轴 / 里程碑进度 | 🟢 |
 | 资助与交付物反查 | 🟢 |
@@ -194,5 +191,5 @@ project: PaperBell
 | 交付物编译状态暴露给项目 | 🔵 |
 
 > [!abstract] 一句话总结
-> **今天的 PaperBell**：材料自动归位、概念自我生长、项目与经费不用两头记账、论文一键导出。
+> **今天的 PaperBell**：材料自动归位、概念网络按需维护、项目与经费不用两头记账、论文一键导出。
 > **明天的 PaperBell**：让概念网络真正"反哺"写作——选定概念，素材、引文、合作者自己找上门。

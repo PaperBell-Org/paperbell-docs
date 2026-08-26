@@ -1,13 +1,13 @@
 ---
 title: PaperBell Project Manager
 description: 使用 Project Manager 创建科研项目、维护稳定项目 ID，并统计项目里程碑
-status: draft
+status: published
 order: 3
 ---
 
 # PaperBell Project Manager
 
-PaperBell Project Manager 是 `40 - Projects` 的项目入口。它负责创建和编辑项目主页、维护项目标签，以及在 Bases 项目卡片中显示项目阶段和里程碑进度。
+PaperBell Project Manager `0.3.2` 是 `40 - Projects` 的项目入口。它负责创建和编辑项目主页、维护项目标签，以及在 Bases 项目卡片中显示项目阶段和里程碑进度。
 
 它不替代任务管理器：项目的创建和元数据由 Project Manager 负责，跨文件任务的索引与操作由 Task Genius 负责。
 
@@ -15,7 +15,11 @@ PaperBell Project Manager 是 `40 - Projects` 的项目入口。它负责创建�
 
 **[PaperBell Project Manager 项目仓库](https://github.com/SongshGeo/PaperBell-Project-Manager)**
 
-PaperBell 已包含该插件。打开“设置 → 第三方插件”，确认 **PaperBell Project Manager** 已启用即可。手动安装或更新时，以仓库发布页和说明为准。
+PaperBell 已包含并启用该插件。打开“设置 → 第三方插件”，确认 **PaperBell Project Manager** 已启用即可。手动安装或更新时，以仓库发布页和说明为准。
+
+PaperBell 的 `40 - Projects/00. 项目列表.base` 使用 `paperbell-project-cards` 自定义 Base 视图渲染项目卡片；这不是普通 table 视图。Task Genius 也为 Base 注册了甘特图等自定义视图。自定义视图由对应插件提供：插件停用时 `.base` 文件仍在，但相关视图无法按原方式渲染。
+
+
 
 ## PaperBell 的单独配置
 
