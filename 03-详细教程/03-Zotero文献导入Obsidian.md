@@ -39,25 +39,26 @@ ZotLit 版本：2.1.0-beta.3
 6. 确认 Better BibTeX citekey 已生成，并在写作期间保持稳定。
 
 > [!important] 只选一个 citekey 权威来源
-> 不要让 Zotero 原生键、Better BibTeX 键和手工键同时变化。PaperBell 的 Eta 字段模板直接读取 ZotLit 提供的 `it.citekey`。
+不要让 Zotero 原生键、Better BibTeX 键和手工键同时变化。PaperBell 的托管字段 `note.frontmatter-fields` 直接读取 ZotLit 提供的 `zt.citationKey`。
 
-## 三、认识七个 Eta 模板
+## 三、认识六个模板槽位
 
-`00 - Obsidian/模板` 中当前共有七个 ZotLit Eta 模板：
+新版 ZotLit 模板系统有六个槽位，对应 `00 - Obsidian/模板` 中的 `zotlit-*.eta.md`：
 
 | 模板 | 用途 |
 | --- | --- |
-| `zt-field.eta.md` | 生成 YAML 字段 |
-| `zt-note.eta.md` | 生成文献笔记正文骨架 |
-| `zt-annot.eta.md` | 渲染单条批注 |
-| `zt-annots.eta.md` | 汇总批注 |
-| `zt-colored.eta.md` | 按颜色组织批注 |
-| `zt-cite.eta.md` | 引用文本模板 |
-| `zt-cite2.eta.md` | 第二种引用文本模板 |
+| `zotlit-note.eta.md` | 生成文献笔记正文骨架 |
+| `zotlit-content.eta.md` | 管理区域：Notes 与 Annotations |
+| `zotlit-annotation.eta.md` | 渲染单条批注 |
+| `zotlit-filename.eta.md` | 生成文件名（默认 citekey） |
+| `zotlit-cite.eta.md` | 引用文本模板 |
+| `zotlit-cite2.eta.md` | 第二种引用文本模板 |
 
-### `zt-field.eta.md` 当前生成的字段
+frontmatter 不再由模板文件生成，由 `data.json` 中的 `note.frontmatter-fields` 托管字段生成（见下文）。
 
-模板生成以下内容：
+### `note.frontmatter-fields` 当前生成的字段
+
+托管字段生成以下内容：
 
 - `title`、`citekey`、`cate: 论文`；
 - `tags`：固定含 `paper`，并接收 Zotero 中以 `#` 开头的标签（移除 `#`）；
@@ -87,7 +88,7 @@ source: ["检索"]
 important: True
 ```
 
-需要长期保留的分类应优先回到 Zotero 修改，再重新渲染；不要把模板控制的字段当成只在 Obsidian 中维护的自由字段。
+需要长期保留的分类应优先回到 Zotero 修改，再重新渲染；不要把托管字段控制的属性当成只在 Obsidian 中维护的自由字段。
 
 ## 四、导出真实 ZotLit 文献笔记
 
@@ -100,7 +101,7 @@ important: True
 
 - YAML 中至少有 `title`、`citekey`、`tags`、`cate`、`keywords`、`read`、`source`、`authors`、`journal`、`paper_date`、`date`、`important`；
 - `citekey` 与 Zotero/Better BibTeX 当前数据一致；
-- 正文含 Zotero、附件和期刊链接表；
+- 正文含一级标题、Zotero 回链与附件链接；
 - `## Annotations` 下的批注与 Zotero 一致；
 - 文件位于 `20 - Inputs/Zotero`。
 
@@ -115,7 +116,7 @@ important: True
 3. 对已有文献笔记执行 ZotLit 的更新 literature note 操作。
 4. 检查 `## Annotations`，并确认手写内容未被误放到模板会重建的区域。
 
-模板职责应分开排查：正文骨架看 `zt-note.eta.md`，单条批注看 `zt-annot.eta.md`，批注汇总看 `zt-annots.eta.md`，颜色分组看 `zt-colored.eta.md`，YAML 看 `zt-field.eta.md`。
+模板职责应分开排查：正文骨架看 `zotlit-note.eta.md`，管理区域看 `zotlit-content.eta.md`，单条批注看 `zotlit-annotation.eta.md`，文件名看 `zotlit-filename.eta.md`，YAML 看 `data.json` 的 `note.frontmatter-fields`。
 
 ## 六、Inputs Bell 的边界
 
@@ -125,13 +126,12 @@ Inputs Bell 当前启用 `normalize-frontmatter`、`localize-images`、`move-by-
 
 ## 七、最小排错顺序
 
-| 现象 | 先检查 |
-| --- | --- |
-| 搜索不到新文献 | Zotero 数据库连接、library scope 与 `Refresh index` |
-| YAML 缺失或映射错误 | `00 - Obsidian/模板/zt-field.eta.md` |
-| 整个正文或批注标题缺失 | `zt-note.eta.md` 是否渲染 `it.annotations` |
-| 单条批注异常 | `zt-annot.eta.md` 与该条批注数据 |
-| 颜色分组异常 | `zt-annots.eta.md` / `zt-colored.eta.md` |
+| 现象           | 先检查                                          |
+| ------------ | -------------------------------------------- |
+| 搜索不到新文献      | Zotero 数据库连接、library scope 与 `Refresh index` |
+| YAML 缺失或映射错误 | `data.json` 的 `note.frontmatter-fields` 配置   |
+| 整个正文或批注标题缺失  | `zotlit-note.eta.md` 是否 include `content`    |
+| 单条批注异常       | `zotlit-annotation.eta.md` 与该条批注数据           |
 | citekey 不正确 | Better BibTeX 与 ZotLit 索引中的 citekey |
 | ZotLit 正常但路径变化 | Inputs Bell 的 `move-by-frontmatter` 规则 |
 
