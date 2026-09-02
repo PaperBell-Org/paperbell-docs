@@ -9,8 +9,8 @@ import type { ComponentProps, ReactNode } from 'react';
  * 边框把区域圈出来了，竖线属于重复的分隔；它又被容器的 ps-1 顶出约 4px
  * 缝隙，看着像浮在里面的一道多余装饰。
  *
- * 这里去掉那根竖线，改成贴着卡片左边缘的一道强调色边框——区域只由卡片
- * 界定一次，类型仍然靠左边缘的颜色和图标传达。
+ * 这里换成一小段贴着左边缘、垂直居中的强调条：不走满整条边，也就不必跟着
+ * 圆角拐弯。区域只由卡片界定一次，类型靠这一小段颜色和图标传达。
  */
 type CalloutType = 'info' | 'idea' | 'success' | 'warning' | 'error';
 
@@ -50,7 +50,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        'my-4 flex gap-2.5 rounded-xl border border-s-2 border-s-(--callout-color)',
+        'relative my-4 flex gap-2.5 rounded-xl border',
         'bg-fd-card p-3 text-sm text-fd-card-foreground shadow-sm',
         className,
       )}
@@ -62,6 +62,11 @@ export function Callout({
       }
       {...props}
     >
+      {/* 短强调条：start-[-1px] 盖住卡片那 1px 边框，读起来就是边缘本身的一段 */}
+      <span
+        aria-hidden="true"
+        className="absolute start-[-1px] top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-full bg-(--callout-color)"
+      />
       {icon ?? (
         <Icon
           className={cn(
