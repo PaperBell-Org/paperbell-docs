@@ -92,16 +92,51 @@ jobs:
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
-          # --delete 让服务器与产物完全一致，删掉的页面不会留成僵尸文件。
+          SSH_OPTS="-i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes"
+
+          # 先传到同级的 .new，再在服务器上用一次 mv 换过去。
+          #
+          # 直接 rsync --delete 到线上目录不是原子的：同步进行到一半时，新的
+          # HTML 可能已经就位、而它引用的 hash chunk 还没传完，或者旧 chunk
+          # 已经被删掉。页面 HTML 是 no-cache 每次回源的，所以这个窗口真的会
+          # 被访客撞上——表现就是一个完全没有样式的裸页面。
+          #
           # 结尾的斜杠不能少，否则会在目标目录里多套一层 out/。
-          rsync -az --delete --checksum \
-            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" \
+          rsync -az --delete -e "ssh $SSH_OPTS" \
             "$BUILD_OUT/" \
-            "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
+            "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH.new/"
+
+          ssh $SSH_OPTS "$DEPLOY_USER@$DEPLOY_HOST" "set -e
+            # nginx 以 www 身份读，确保目录可进入、文件可读
+            find '$DEPLOY_PATH.new' -type d -exec chmod 755 {} +
+            find '$DEPLOY_PATH.new' -type f -exec chmod 644 {} +
+            rm -rf '$DEPLOY_PATH.old'
+            if [ -d '$DEPLOY_PATH' ]; then mv '$DEPLOY_PATH' '$DEPLOY_PATH.old'; fi
+            mv '$DEPLOY_PATH.new' '$DEPLOY_PATH'
+            rm -rf '$DEPLOY_PATH.old'
+          "
 
       - name: 验证线上可访问
         if: ${{ github.event_name == 'push' || !inputs.dry_run }}
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' https://paperbell.cn/docs/)
-          echo "https://paperbell.cn/docs/ -> $code"
-          [ "$code" = "200" ] || exit 1
+          # 只看首页 200 是不够的：样式和脚本挂掉时页面照样返回 200，
+          # 只是渲染成一个没有样式的裸页面。这里把首页引用的 _next 资源
+          # 逐个取一遍，缺一个就判失败。
+          fail=0
+          for page in / /intro/ /guide/ /plugins/; do
+            url="https://paperbell.cn/docs${page}"
+            code=$(curl -s -o /tmp/page.html -w '%{http_code}' "$url")
+            echo "$url -> $code"
+            [ "$code" = "200" ] || fail=1
+          done
+
+          assets=$(grep -oE '(href|src)="/docs/_next/[^"]+"' /tmp/page.html \
+                   | sed -E 's/^(href|src)="//; s/"$//' | sort -u)
+          echo "检查 $(echo "$assets" | wc -l) 个静态资源"
+          for a in $assets; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://paperbell.cn$a")
+            [ "$code" = "200" ] || { echo "缺失 $code $a"; fail=1; }
+          done
+
+          [ "$fail" = "0" ] || exit 1
+          echo "页面与静态资源均可访问"
