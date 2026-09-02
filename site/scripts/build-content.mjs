@@ -185,6 +185,170 @@ function escapeMdx(md) {
     .join('\n');
 }
 
+/**
+ * Obsidian callout -> fumadocs <Callout>。
+ *
+ * fumadocs 只有 info / idea / success / warning / warn / error 六种样式，
+ * 而文档里用了十几种 Obsidian 类型，这里往这六类上归；原本的语义靠标题保留。
+ * 不认识的类型退到 info，并记一条警告，不中断构建。
+ */
+const CALLOUT_TYPES = {
+  note: 'info',
+  info: 'info',
+  abstract: 'info',
+  summary: 'info',
+  tldr: 'info',
+  todo: 'info',
+  quote: 'info',
+  cite: 'info',
+  example: 'info',
+  workflow: 'info',
+  question: 'info',
+  faq: 'info',
+  help: 'info',
+  tip: 'idea',
+  hint: 'idea',
+  idea: 'idea',
+  success: 'success',
+  check: 'success',
+  done: 'success',
+  warning: 'warning',
+  caution: 'warning',
+  attention: 'warning',
+  important: 'warning',
+  danger: 'error',
+  error: 'error',
+  failure: 'error',
+  fail: 'error',
+  missing: 'error',
+  bug: 'error',
+};
+
+/** 没写标题时用的中文默认标签（Obsidian 会显示类型名，这里本地化一下） */
+const CALLOUT_LABELS = {
+  note: '笔记',
+  info: '说明',
+  abstract: '概要',
+  summary: '概要',
+  tldr: '概要',
+  todo: '待办',
+  quote: '引用',
+  cite: '引用',
+  example: '示例',
+  workflow: '流程',
+  question: '问题',
+  faq: '常见问题',
+  help: '帮助',
+  tip: '提示',
+  hint: '提示',
+  idea: '想法',
+  success: '完成',
+  check: '检查',
+  done: '完成',
+  warning: '注意',
+  caution: '注意',
+  attention: '注意',
+  important: '重要',
+  danger: '危险',
+  error: '错误',
+  failure: '失败',
+  fail: '失败',
+  missing: '缺失',
+  bug: '缺陷',
+};
+
+const CALLOUT_RE = /^(\s*)>\s*\[!([A-Za-z]+)\]([+-]?)\s*(.*)$/;
+const CALLOUT_OPEN = '@@PB_CALLOUT_OPEN_';
+const CALLOUT_CLOSE = '@@PB_CALLOUT_CLOSE@@';
+
+/** 标题里的行内 markdown 直接抹平：它最终进的是 JSX 属性，渲染不了格式 */
+function cleanCalloutTitle(raw) {
+  return raw
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/\\([\\`*_{}[\]()#+\-.!])/g, '$1')
+    .trim();
+}
+
+/**
+ * 把 callout 换成占位符，块体解掉 `> ` 前缀留作普通 markdown。
+ *
+ * 必须在 escapeMdx 之前跑：直接生成 <Callout> 的话会被 escapeMdx 当成
+ * 普通文本转义成 &lt;Callout。占位符里不含 < { } 和反引号，
+ * escapeMdx 与 rewriteLinks 都不会碰它，等它们跑完再换回真正的 JSX。
+ */
+function extractCallouts(md) {
+  const lines = md.split('\n');
+  const out = [];
+  const blocks = [];
+  let inFence = false;
+  let fenceMark = '';
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    const fence = line.match(/^\s*(`{3,}|~{3,})/);
+    if (fence) {
+      if (!inFence) {
+        inFence = true;
+        fenceMark = fence[1][0];
+      } else if (fence[1][0] === fenceMark) {
+        inFence = false;
+      }
+      out.push(line);
+      continue;
+    }
+    if (inFence) {
+      out.push(line);
+      continue;
+    }
+
+    const m = line.match(CALLOUT_RE);
+    if (!m) {
+      out.push(line);
+      continue;
+    }
+
+    const rawType = m[2].toLowerCase();
+    const rawTitle = m[4];
+
+    // 后续所有以 > 开头的行都是块体，解掉一层引用前缀
+    const body = [];
+    let j = i + 1;
+    while (j < lines.length && /^\s*>/.test(lines[j])) {
+      body.push(lines[j].replace(/^\s*>\s?/, ''));
+      j++;
+    }
+    i = j - 1;
+
+    let type = CALLOUT_TYPES[rawType];
+    if (!type) {
+      type = 'info';
+      warnings.push(`未知的 callout 类型 \`${rawType}\`，已按 info 渲染`);
+    }
+    const title = cleanCalloutTitle(rawTitle) || CALLOUT_LABELS[rawType] || rawType;
+
+    const idx = blocks.length;
+    blocks.push({ type, title });
+    // 前后留空行，MDX 才会把块体按 markdown 解析
+    out.push(`${CALLOUT_OPEN}${idx}@@`, '', ...body, '', CALLOUT_CLOSE);
+  }
+
+  return { md: out.join('\n'), blocks };
+}
+
+/** 占位符换回 JSX。标题走 JSON.stringify，引号和反斜杠都不会破坏属性 */
+function restoreCallouts(md, blocks) {
+  return md
+    .replace(new RegExp(`^${CALLOUT_OPEN}(\\d+)@@$`, 'gm'), (_m, i) => {
+      const b = blocks[Number(i)];
+      return `<Callout type=${JSON.stringify(b.type)} title={${JSON.stringify(b.title)}}>`;
+    })
+    .replace(new RegExp(`^${CALLOUT_CLOSE}$`, 'gm'), '</Callout>');
+}
+
 /** 从一段 markdown 里抽一句纯文本当 description */
 function extractDescription(body) {
   for (const raw of body.split(/\n\s*\n/)) {
@@ -436,8 +600,11 @@ for (const [srcRel, doc] of DOCS) {
 
   const outFile = path.join(CONTENT, `${slug}.mdx`);
   let body = normalizeFenceLangs(raw);
-  body = escapeMdx(body);
+  // callout 先抽成占位符，等转义和链接改写都跑完再换回 <Callout>
+  const callouts = extractCallouts(body);
+  body = escapeMdx(callouts.md);
   body = rewriteLinks(body, srcRel, path.dirname(outFile));
+  body = restoreCallouts(body, callouts.blocks);
   body = body.replace(/\n{3,}/g, '\n\n').trimEnd();
 
   const fm = ['---', `title: ${JSON.stringify(title)}`];
