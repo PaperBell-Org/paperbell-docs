@@ -1,5 +1,6 @@
 ---
 title: PaperBell 主插件
+slug: plugins/core/paperbell
 description: 使用 PaperBell 主插件激活主插件与子插件，并集中保存大模型 API 配置
 status: published
 order: 1

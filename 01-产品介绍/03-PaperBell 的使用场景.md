@@ -1,5 +1,6 @@
 ---
 title: PaperBell 的使用场景
+slug: intro/use-cases
 description: 从输入、生涯管理、项目和写作场景理解 PaperBell 当前能力与路线图边界
 status: published
 order: 3

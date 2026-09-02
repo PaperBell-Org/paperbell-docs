@@ -1,5 +1,6 @@
 ---
 title: Dataview
+slug: plugins/extra/dataview
 description: 介绍 Dataview 的动态查询能力及其与 PaperBell 结构化属性的配合
 status: published
 order: 5

@@ -1,5 +1,6 @@
 ---
 title: Task Genius
+slug: plugins/core/task-genius
 description: 说明 Task Genius 如何识别 Markdown 任务，并通过项目标签连接 PaperBell 科研项目
 status: published
 order: 4

@@ -1,5 +1,6 @@
 ---
 title: Zotero Connector
+slug: plugins/external/zotero-connector
 description: 从浏览器抓取文献元数据和可访问的 PDF，并保存到 Zotero
 status: published
 order: 1

@@ -1,5 +1,6 @@
 ---
 title: 第二部分：快速上手
+slug: start/index
 description: 完成必要安装与首次配置，并用一组测试数据跑通从网页采集到 Pandoc 首次导出的完整科研闭环
 status: published
 order: 2

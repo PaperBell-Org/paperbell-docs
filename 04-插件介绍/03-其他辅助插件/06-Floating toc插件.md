@@ -1,5 +1,6 @@
 ---
 title: Floating TOC
+slug: plugins/extra/floating-toc
 description: 介绍 Floating TOC 的长文档浮动目录与标题跳转功能
 status: published
 order: 6

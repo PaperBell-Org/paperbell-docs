@@ -1,5 +1,6 @@
 ---
 title: Recent Files
+slug: plugins/extra/recent-files
 description: 介绍 Recent Files 的最近访问列表与快速返回笔记功能
 status: published
 order: 12

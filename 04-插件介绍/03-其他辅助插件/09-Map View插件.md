@@ -1,5 +1,6 @@
 ---
 title: Map View
+slug: plugins/extra/map-view
 description: 介绍 Map View 的地理位置标注、筛选与 PaperBell 地理信息展示
 status: published
 order: 9

@@ -1,5 +1,6 @@
 ---
 title: Ethereal Style
+slug: plugins/external/ethereal-style
 description: 在 Zotero 中配置批注颜色，并了解与 PaperBell 的 ZotLit Eta 模板的配合边界
 status: published
 order: 4

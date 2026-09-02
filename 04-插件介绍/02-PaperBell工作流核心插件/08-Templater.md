@@ -1,5 +1,6 @@
 ---
 title: Templater
+slug: plugins/core/templater
 description: 介绍 PaperBell 当前启用的文件夹规则，以及日记、术语、项目、学者、机构和输出模板
 status: published
 order: 8

@@ -1,5 +1,6 @@
 ---
 title: Advanced URI
+slug: plugins/extra/advanced-uri
 description: 介绍通过 Obsidian URI 从库内外打开笔记、标题或命令的方法
 status: published
 order: 2

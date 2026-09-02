@@ -1,5 +1,6 @@
 ---
 title: Minimal Theme Settings
+slug: plugins/extra/minimal-theme-settings
 description: 介绍 Minimal 主题配套设置及 PaperBell v5.0.1 当前外观基线
 status: published
 order: 10

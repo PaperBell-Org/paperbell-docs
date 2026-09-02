@@ -1,5 +1,6 @@
 ---
 title: Obsidian Web Clipper
+slug: plugins/external/web-clipper
 description: 使用 PaperBell Scholar clipper 模板从公开网页自动创建学者档案
 status: published
 order: 5

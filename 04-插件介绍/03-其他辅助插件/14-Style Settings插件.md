@@ -1,5 +1,6 @@
 ---
 title: Style Settings
+slug: plugins/extra/style-settings
 description: 介绍 Style Settings 对主题、插件和 CSS snippets 样式变量的管理边界
 status: published
 order: 14

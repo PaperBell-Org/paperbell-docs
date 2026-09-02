@@ -1,5 +1,6 @@
 ---
 title: ZotLit
+slug: plugins/core/zotlit
 description: 介绍 ZotLit 2.1.0-beta.3 在 PaperBell v5.0.1 中的 Eta 模板、数据配置与使用边界
 status: published
 order: 5

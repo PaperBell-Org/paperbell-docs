@@ -1,5 +1,6 @@
 ---
 title: Inputs Bell
+slug: plugins/core/inputs-bell
 description: 在输入笔记进入 Obsidian 后执行字段归一化、图片本地化、校对与归位
 status: published
 order: 2

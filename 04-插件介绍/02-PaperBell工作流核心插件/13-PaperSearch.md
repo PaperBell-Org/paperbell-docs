@@ -1,5 +1,6 @@
 ---
 title: PaperSearch
+slug: plugins/core/papersearch
 description: 说明 PaperSearch 0.8.2 的检索角色、随包核心、本地后端和当前数据目录
 status: published
 order: 13

@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/*
+ * 设计令牌取自线上 next.paperbell.cn 的实现
+ * （paperbell-verify 仓库 feat/website-redesign 分支的 web/src/index.css）：
+ * 暖白学术纸底 + 细方格 + 靛蓝强调 + 衬线标题。
+ */
+@theme static {
+  --color-pb-paper: #f6f3ee;
+  --color-pb-paper-2: #efe9df;
+  --color-pb-paper-3: #eae3d7;
+  --color-pb-ink: #1b1a17;
+  --color-pb-accent: oklch(0.46 0.13 264);
+  --color-pb-gold: oklch(0.62 0.11 70);
+
+  --font-pb-sans: 'Public Sans', 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI',
+    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-pb-serif: 'Source Serif 4', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --font-pb-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Mono', monospace;
+}
+
+@theme {
+  --color-fd-background: #f6f3ee;
+  --color-fd-foreground: #1b1a17;
+  --color-fd-muted: #efe9df;
+  --color-fd-muted-foreground: #56524a;
+  --color-fd-popover: #fffdf9;
+  --color-fd-popover-foreground: #1b1a17;
+  --color-fd-card: #fffdf9;
+  --color-fd-card-foreground: #1b1a17;
+  --color-fd-border: rgba(27, 26, 23, 0.13);
+  --color-fd-primary: oklch(0.46 0.13 264);
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #efe9df;
+  --color-fd-secondary-foreground: #1b1a17;
+  --color-fd-accent: #eae3d7;
+  --color-fd-accent-foreground: #1b1a17;
+  --color-fd-ring: oklch(0.46 0.13 264);
+  --color-fd-overlay: rgba(27, 26, 23, 0.25);
+
+  /* 细方格底纹 */
+  --pb-line: rgba(27, 26, 23, 0.06);
+  --pb-grid: 30px;
+}
+
+.dark {
+  --color-fd-background: #101113;
+  --color-fd-foreground: #ece9e2;
+  --color-fd-muted: #16181c;
+  --color-fd-muted-foreground: #a9a59c;
+  --color-fd-popover: #17181b;
+  --color-fd-popover-foreground: #ece9e2;
+  --color-fd-card: #17181b;
+  --color-fd-card-foreground: #ece9e2;
+  --color-fd-border: rgba(236, 233, 226, 0.12);
+  --color-fd-primary: oklch(0.72 0.12 264);
+  --color-fd-primary-foreground: #101113;
+  --color-fd-secondary: #16181c;
+  --color-fd-secondary-foreground: #ece9e2;
+  --color-fd-accent: #1c1e22;
+  --color-fd-accent-foreground: #ece9e2;
+  --color-fd-ring: oklch(0.72 0.12 264);
+  --color-fd-overlay: rgba(0, 0, 0, 0.5);
+
+  --pb-line: rgba(236, 233, 226, 0.045);
+}
+
+.dark #nd-sidebar {
+  --color-fd-muted: #0b0c0e;
+  --color-fd-secondary: #16181c;
+  --color-fd-muted-foreground: #a9a59c;
+}
+
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+  font-family: var(--font-pb-sans);
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+/* 和主站一致的细方格底纹 */
+body {
+  background-image:
+    linear-gradient(var(--pb-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pb-line) 1px, transparent 1px);
+  background-size: var(--pb-grid) var(--pb-grid);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: oklch(0.46 0.13 264 / 0.14);
+}
+
+.dark ::selection {
+  background: oklch(0.72 0.12 264 / 0.22);
+}
+
+/* 标题用衬线，和主站的学术气质保持一致 */
+#nd-page h1,
+#nd-page h2,
+#nd-page h3,
+#nd-page h4 {
+  font-family: var(--font-pb-serif);
+  letter-spacing: -0.01em;
+}
+
+code,
+kbd,
+pre,
+.font-mono {
+  font-family: var(--font-pb-mono);
+}
+
+/* 中文正文的可读性微调 */
+#nd-page .prose {
+  text-wrap: pretty;
+}
+
+#nd-page .prose p,
+#nd-page .prose li {
+  line-height: 1.85;
+}
+
+/* 截图统一给个圆角+细边，和主站卡片风格一致 */
+#nd-page .prose img:not([data-inline]) {
+  border-radius: 5px;
+  border: 1px solid var(--color-fd-border);
+  background: var(--color-fd-card);
+}
+
+#nd-page .prose video {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid var(--color-fd-border);
+  background: #000;
+}
+
+/* 导航栏品牌标记：沿用主站 .brand .mark 的方框造型 */
+.pb-mark {
+  width: 27px;
+  height: 27px;
+  border-radius: 3px;
+  object-fit: contain;
+}

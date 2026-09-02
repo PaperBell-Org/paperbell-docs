@@ -1,5 +1,6 @@
 ---
 title: QuickAdd
+slug: plugins/core/quickadd
 description: 介绍 PaperBell 当前配置的日记、学者、机构、豆瓣与术语命令
 status: published
 order: 9

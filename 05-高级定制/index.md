@@ -1,5 +1,6 @@
 ---
 title: 第五部分：高级定制
+slug: advanced/index
 description: 在默认工作流已经通过验收后，安全修改七个 ZotLit Eta 模板、笔记关联逻辑和 Pandoc 导出链
 status: published
 order: 5

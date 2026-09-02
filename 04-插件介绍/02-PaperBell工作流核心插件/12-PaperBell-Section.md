@@ -1,5 +1,6 @@
 ---
 title: PaperBell Section
+slug: plugins/core/paperbell-section
 description: 说明 PaperBell Section 0.3.1 的工作区入口、当前数据目录与未连接边界
 status: published
 order: 12

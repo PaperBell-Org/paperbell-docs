@@ -1,5 +1,6 @@
 ---
 title: PaperBell Project Manager
+slug: plugins/core/project-manager
 description: 使用 Project Manager 创建科研项目、维护稳定项目 ID，并统计项目里程碑
 status: published
 order: 3

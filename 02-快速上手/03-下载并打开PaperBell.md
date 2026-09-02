@@ -1,5 +1,6 @@
 ---
 title: 下载并打开 PaperBell
+slug: start/open-vault
 description: 下载完整发布包，打开正确的库根目录，并完成插件启用、Web Clipper 连接与首次导出准备
 status: published
 order: 3

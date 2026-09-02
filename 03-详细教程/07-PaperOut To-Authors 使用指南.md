@@ -1,5 +1,6 @@
 ---
 title: PaperOut To-Authors 使用指南
+slug: guide/paperout
 description: 使用 PaperOut To-Authors 2.4.0-beta.6 创建长文项目、选择六条工作流并通过 Pandoc 导出
 status: published
 order: 7

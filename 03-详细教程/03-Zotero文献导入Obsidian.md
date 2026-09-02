@@ -1,5 +1,6 @@
 ---
 title: Zotero文献导入 Obsidian
+slug: guide/zotero-import
 description: 使用 Zotero Connector、Better BibTeX 与 ZotLit 2.1.0-beta.3 将文献和批注导入 Obsidian
 status: published
 order: 3

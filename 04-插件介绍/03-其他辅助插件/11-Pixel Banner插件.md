@@ -1,5 +1,6 @@
 ---
 title: Pixel Banner
+slug: plugins/extra/pixel-banner
 description: 介绍 Pixel Banner 的笔记横幅来源、设置与视觉展示用途
 status: published
 order: 11

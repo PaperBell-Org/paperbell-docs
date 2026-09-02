@@ -1,5 +1,6 @@
 ---
 title: 第六部分：FAQ 与问题反馈
+slug: faq/index
 description: 收录 PaperBell 的补充说明、常见问题与反馈入口
 status: published
 order: 6

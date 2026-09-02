@@ -1,5 +1,6 @@
 ---
 title: PaperBell Cards Wrangler
+slug: plugins/core/cards-wrangler
 description: 使用 Cards Wrangler 1.0.2 按需维护概念卡、别名与输入笔记之间的连接
 status: published
 order: 10

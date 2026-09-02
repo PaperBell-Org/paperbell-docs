@@ -1,5 +1,6 @@
 ---
 title: Hover Editor
+slug: plugins/extra/hover-editor
 description: 介绍 Hover Editor 的可编辑悬浮预览及其在关联笔记间的使用方式
 status: published
 order: 8

@@ -30,10 +30,21 @@
 !.github/
 !.github/**
 
-# Fumadocs 站点生成器（提交后 CI 才能构建文档站）
+# Fumadocs 站点生成器（CI 靠它构建文档站）
 !site/
 !site/**
+
+# 以下都是 `pnpm content` / `next build` 的产物，不进仓库：
 site/node_modules/
 site/.next/
-site/out/
 site/.source/
+site/out/
+# 由仓库里的 md 生成的 MDX
+site/content/
+# 图片副本（assets/img）
+site/assets/
+# 视频 / PDF 等附件副本
+site/public/files/
+site/next-env.d.ts
+site/*.tsbuildinfo
+site/docs-dist.tar.gz

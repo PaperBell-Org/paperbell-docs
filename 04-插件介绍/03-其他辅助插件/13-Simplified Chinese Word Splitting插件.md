@@ -1,5 +1,6 @@
 ---
 title: Simplified Chinese Word Splitting
+slug: plugins/extra/chinese-word-splitting
 description: 介绍简体中文分词插件对选词、光标移动和中文编辑体验的改善
 status: published
 order: 13

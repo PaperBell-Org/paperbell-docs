@@ -1,5 +1,6 @@
 ---
 title: Homepage
+slug: plugins/extra/homepage
 description: 介绍 Homepage 的启动页和工作区入口，以及 PaperBell 当前主工作区配置
 status: published
 order: 7

@@ -1,5 +1,6 @@
 ---
 title: PaperBell 新版用户教程
+slug: index
 description: 以 CIMPO 为框架，在 Obsidian 中管理科研项目、导入文献、记录日常、追踪学者与组织、维护概念卡并完成输出
 status: published
 order: 0

@@ -1,5 +1,6 @@
 ---
 title: CIMPO 学术生涯管理框架
+slug: guide/cimpo
 description: 用 Concepts、Inputs、Metadata、Projects、Outputs 五个单元组织学术生涯
 status: published
 order: 1

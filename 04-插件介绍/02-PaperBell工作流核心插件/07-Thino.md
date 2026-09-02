@@ -1,5 +1,6 @@
 ---
 title: Thino
+slug: plugins/core/thino
 description: 使用 Thino 快速捕获闪念，并把项目、概念和任务记录写回 PaperBell 当天日记
 status: published
 order: 7

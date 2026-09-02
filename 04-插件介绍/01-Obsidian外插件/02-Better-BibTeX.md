@@ -1,5 +1,6 @@
 ---
 title: Better BibTeX
+slug: plugins/external/better-bibtex
 description: 为 Zotero 提供稳定的 citation key 与 BibTeX/BibLaTeX 导出
 status: published
 order: 2

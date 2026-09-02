@@ -1,5 +1,6 @@
 ---
 title: 第三部分：详细教程
+slug: guide/index
 description: 从 CIMPO 框架进入科研项目管理、文献导入、日常记录、学者与组织追踪、概念卡与 PaperOut
 status: published
 order: 3

@@ -1,5 +1,6 @@
 ---
 title: PaperOut To-Authors
+slug: plugins/core/paperout-to-authors
 description: 使用 PaperOut To-Authors 2.4.0-beta.6 组织长文项目并通过 Pandoc 工作流输出成果
 status: published
 order: 11

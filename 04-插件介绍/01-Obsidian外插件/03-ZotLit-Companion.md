@@ -1,5 +1,6 @@
 ---
 title: ZotLit Companion
+slug: plugins/external/zotlit-companion
 description: 安装在 Zotero 中的 ZotLit 伴侣扩展
 status: published
 order: 3

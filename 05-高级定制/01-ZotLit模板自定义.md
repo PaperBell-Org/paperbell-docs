@@ -1,5 +1,6 @@
 ---
 title: ZotLit 模板自定义
+slug: advanced/zotlit-templates
 description: 理解 ZotLit 2.1.0-beta.3 的六个模板槽位与托管字段，并安全修改文献笔记字段、批注与引用格式
 status: published
 order: 1

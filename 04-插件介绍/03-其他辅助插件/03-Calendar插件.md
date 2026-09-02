@@ -1,5 +1,6 @@
 ---
 title: Calendar
+slug: plugins/extra/calendar
 description: 介绍 Calendar 的日历入口及其与 PaperBell 日记和周记流程的配合
 status: published
 order: 3

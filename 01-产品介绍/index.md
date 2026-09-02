@@ -1,5 +1,6 @@
 ---
 title: 第一部分：产品介绍
+slug: intro/index
 description: 认识 PaperBell 的目标、边界与教程阅读方法
 status: published
 order: 1

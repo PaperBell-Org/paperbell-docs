@@ -1,5 +1,6 @@
 ---
 title: PaperOut 协作与使用场景
+slug: guide/paperout-collaboration
 description: 说明 PaperOut To-Authors 2.4.0-beta.6 在 CIMPO 输出端的当前契约与规划边界
 status: published
 order: 8

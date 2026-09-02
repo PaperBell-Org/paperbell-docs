@@ -1,5 +1,6 @@
 ---
 title: 第四部分：插件介绍
+slug: plugins/index
 description: 按运行位置、启用状态和工作流职责说明 PaperBell v5.0.1 所用插件
 status: published
 order: 4

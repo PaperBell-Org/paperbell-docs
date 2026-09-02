@@ -1,5 +1,6 @@
 ---
 title: Claudian
+slug: plugins/extra/claudian
 description: 介绍 Claudian 的 AI 代理接入、权限边界与 PaperBell 协作建议
 status: published
 order: 4
