@@ -1,0 +1,106 @@
+name: Deploy docs
+
+# 每次把内容推到 main 就重新构建 Fumadocs 静态站并同步到服务器。
+# 服务器上 nginx 直接从 /www/wwwroot/paperbell-docs/docs 提供 paperbell.cn/docs，
+# 没有额外的重启动作，rsync 完成即生效。
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - ".github/**"
+      - "!.github/workflows/deploy-docs.yml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "只构建不同步（用来验证构建是否正常）"
+        type: boolean
+        default: false
+
+# 同一分支只保留最后一次部署，避免连续推送时新旧产物互相覆盖
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: false
+
+env:
+  # Fumadocs 站点目录与构建产物目录
+  SITE_DIR: site
+  BUILD_OUT: site/out
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: 检出文档内容
+        uses: actions/checkout@v4
+
+      - name: 确认站点生成器存在
+        run: |
+          if [ ! -f "$SITE_DIR/package.json" ]; then
+            echo "::error::找不到 $SITE_DIR/package.json。"
+            echo "::error::Fumadocs 站点生成器还没提交进本仓库，CI 无法构建。"
+            echo "::error::请把本地的 site/ 目录提交上来（注意 .gitignore 是白名单模式，需要放行 site/）。"
+            exit 1
+          fi
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: ${{ env.SITE_DIR }}/pnpm-lock.yaml
+
+      - name: 安装依赖
+        working-directory: ${{ env.SITE_DIR }}
+        run: pnpm install --frozen-lockfile
+
+      - name: 生成内容并构建
+        working-directory: ${{ env.SITE_DIR }}
+        run: |
+          pnpm content
+          pnpm build
+
+      - name: 校验构建产物
+        run: |
+          if [ ! -f "$BUILD_OUT/index.html" ]; then
+            echo "::error::$BUILD_OUT/index.html 不存在，构建产物不完整，终止部署。"
+            exit 1
+          fi
+          echo "产物文件数：$(find "$BUILD_OUT" -type f | wc -l)"
+
+      - name: 配置部署密钥
+        if: ${{ github.event_name == 'push' || !inputs.dry_run }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: 同步到服务器
+        if: ${{ github.event_name == 'push' || !inputs.dry_run }}
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          # --delete 让服务器与产物完全一致，删掉的页面不会留成僵尸文件。
+          # 结尾的斜杠不能少，否则会在目标目录里多套一层 out/。
+          rsync -az --delete --checksum \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" \
+            "$BUILD_OUT/" \
+            "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
+
+      - name: 验证线上可访问
+        if: ${{ github.event_name == 'push' || !inputs.dry_run }}
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://paperbell.cn/docs/)
+          echo "https://paperbell.cn/docs/ -> $code"
+          [ "$code" = "200" ] || exit 1

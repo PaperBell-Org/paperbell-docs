@@ -25,3 +25,15 @@
 !assets/**
 
 !index.md
+
+# CI 配置：.gitignore 是白名单模式，这里显式放行 workflow
+!.github/
+!.github/**
+
+# Fumadocs 站点生成器（提交后 CI 才能构建文档站）
+!site/
+!site/**
+site/node_modules/
+site/.next/
+site/out/
+site/.source/
