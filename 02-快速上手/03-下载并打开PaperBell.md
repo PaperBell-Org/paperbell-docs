@@ -57,13 +57,13 @@ order: 3
 | 组件 | 首次闭环中的作用 |
 | --- | --- |
 | PaperBell | 激活、授权与共享配置 |
-| PaperBell Project Manager | 创建测试科研项目 |
+| Project Manager | 创建测试科研项目 |
 | Task Genius | 识别项目任务 |
 | ZotLit | 从 Zotero 生成文献笔记 |
 | Inputs Bell | 处理和归位输入笔记 |
 | Thino | 快速写入当天日记 |
 | Templater、QuickAdd | 创建学者、机构和手工概念卡 |
-| PaperBell Cards Wrangler 1.0.2 | 按命令处理当前笔记并建立概念关系；需先配置 LLM 宿主并完成授权，无 AI 时改走手工路径 |
+| Cards Wrangler 1.0.2 | 按命令处理当前笔记并建立概念关系；需先配置 LLM 宿主并完成授权，无 AI 时改走手工路径 |
 | PaperOut To-Authors | 创建写作项目和执行导出工作流 |
 
 同时进入“设置 → 核心插件”，确认 **Daily Notes** 已启用。
