@@ -8,7 +8,7 @@ order: 2
 
 # Inputs Bell
 
-> 一个 **Inputs 文件夹的「后处理钩子」** 插件。它**不负责采集**——采集交给各自的专业工具（浏览器 Web Clipper 抓豆瓣、ZotLit 导 Zotero 文献…）。Inputs Bell 只做一件事：**监听 Inputs 文件夹，笔记一落进来就自动跑一串「后处理脚本」**，把它检查、修好、归位。
+> 一个 **Inputs 文件夹的“后处理钩子”** 插件。它**不负责采集**——采集交给各自的专业工具（浏览器 Web Clipper 抓豆瓣、ZotLit 导 Zotero 文献…）。Inputs Bell 只做一件事：**监听 Inputs 文件夹，笔记一落进来就自动跑一串“后处理脚本”**，把它检查、修好、归位。
 
 - 插件 id：`paper-in-bell` ・ 显示名：**Inputs Bell** ・ 当前版本：**`0.5.3`** ・ 作者：PaperBell-Org
 - 仓库/发布：随 PaperBell 发布渠道提供
@@ -48,10 +48,10 @@ useAiFallback: false
 以前一篇输入笔记进库后，要手动做一堆收尾：豆瓣封面裂图要本地化、frontmatter 字段不齐、笔记还散在根目录没归类、ZotLit 导入的元数据要核对……Inputs Bell 把这些**收尾动作脚本化、自动化**：
 
 ```
-监听 Inputs/（新建笔记）→ 去抖 1.2s → 依次跑「已启用脚本」→ 自动修复 + 汇总提示
+监听 Inputs/（新建笔记）→ 去抖 1.2s → 依次跑“已启用脚本”→ 自动修复 + 汇总提示
 ```
 
-关键设计：**开放**。所有后处理逻辑都是「脚本文件夹」里的 `.js` 脚本（内置几个 + 你自己写），像 Templater / QuickAdd 的用户脚本一样加载。插件本身只是**宿主**。
+关键设计：**开放**。所有后处理逻辑都是“脚本文件夹”里的 `.js` 脚本（内置几个 + 你自己写），像 Templater / QuickAdd 的用户脚本一样加载。插件本身只是**宿主**。
 
 ---
 
@@ -59,11 +59,11 @@ useAiFallback: false
 
 1. 从 PaperBell 发布包获取 `manifest.json` / `main.js` / `styles.css`，放进 `<库>/.obsidian/plugins/paper-in-bell/`。公开安装渠道确认后，再以官方发布说明为准。
 2. **设置 → 第三方插件** 启用 **Inputs Bell**。
-3. 首次加载会在「脚本文件夹」（**插件默认** `Inputs/_scripts`）写入 5 个内置脚本。
+3. 首次加载会在“脚本文件夹”（**插件默认** `Inputs/_scripts`）写入 5 个内置脚本。
 
 > 路径口径：插件出厂默认 `监听文件夹 = Inputs`、`脚本文件夹 = Inputs/_scripts`。本 CIMPO 示例库把它们
 > 改成了 `监听文件夹 = 20 - Inputs`、`脚本文件夹 = 00 - Obsidian/InputsBell`（见第 9 节）——两种都行，
-> 在设置里按你的库结构配即可。下文出现的 `Inputs/...` 均指你所配的「监听文件夹」。
+> 在设置里按你的库结构配即可。下文出现的 `Inputs/...` 均指你所配的“监听文件夹”。
 
 ---
 
@@ -93,20 +93,20 @@ useAiFallback: false
 ### Zotero 校对（给 `verify-zotero` 脚本用）
 - **Zotero 本地 API 地址**（默认 `http://localhost:23119`）：需 Zotero 7+ 运行，并在 **Zotero 设置 → 高级 → 允许本机其它应用通信** 打开。
 - **受保护字段**（默认 `read, source, important, keywords`）：校对时**永不覆盖**这些手填字段。
-- **忽略含以下片段的标签**：把 `✅初读`、`🌟星标` 这类你当字段用的 emoji 标签，从并入 `tags` 前剔除。
+- **忽略含以下片段的标签**：把 `✅初读`、`🌟星标` 这类你当字段用的 emoji 标签，在并入 `tags` 前剔除。
 - **测试连接** 按钮：成功会显示 Zotero 库版本号。
 
 ---
 
 ## 4. 内置脚本详解
 
-内置脚本首次运行写入脚本文件夹，**可直接编辑**（改完点「重新加载脚本」）。按文件名序号顺序执行，`move` 最后跑。
+内置脚本首次运行写入脚本文件夹，**可直接编辑**（改完点“重新加载脚本”）。按文件名序号顺序执行，`move` 最后跑。
 
 ### `10-normalize-frontmatter.js` — 归一化 frontmatter
 确保笔记有规范字段（`input_type` / `title` / `authors` / `keywords`）。给缺字段的笔记补齐，不破坏已有内容。**无参数**。
 
 ### `20-localize-images.js` — 本地化远程图片
-把笔记里的远程图片（豆瓣等，按上面的 Referer 规则带 Referer 下载）存到资源文件夹，并把链接改成本地。豆瓣海报会自动升级成大图。下载失败的保留原链接。**无参数**（用「图片本地化」区的设置）。
+把笔记里的远程图片（豆瓣等，按上面的 Referer 规则带 Referer 下载）存到资源文件夹，并把链接改成本地。豆瓣海报会自动升级成大图。下载失败的保留原链接。**无参数**（用“图片本地化”区的设置）。
 > 为什么需要：豆瓣图片有防盗链，Obsidian 直接加载会裂图；本地化后离线、永不失效。
 
 ### `30-verify-zotero.js` — 向 Zotero 校对（已配置、当前未启用）
@@ -119,7 +119,7 @@ useAiFallback: false
 
 ### `90-move-by-frontmatter.js` — 按 frontmatter 移动到子文件夹 ⭐
 根据 frontmatter 判断归属，移动到监听文件夹下的对应子文件夹（用 `renameFile`，**保持反链**；已在目标里则不动）。**规则可在设置里直接改，不用动 .js**。
-- 参数 **基准文件夹**：子文件夹的父目录，留空用「监听文件夹」。
+- 参数 **基准文件夹**：子文件夹的父目录，留空用“监听文件夹”。
 - 参数 **归类规则**（多行）：每行 `条件 => 子文件夹`，**第一个命中生效**。条件三种：
   - `has:字段名` —— frontmatter 里有该字段且非空（如 `has:zotero-key`）
   - `url:域名片段` —— `douban_url`/`source`/`url` 里包含该片段（如 `url:movie.douban.com`）
@@ -236,9 +236,9 @@ async run(ctx) {
 ## 7.6 落地后交给 Cards Wrangler（协作）
 
 Inputs Bell 处理完一篇笔记后会 trigger 一个工作区事件 **`paper-in-bell:processed`**（载荷
-`{ path, report }`），这是「这篇输入已归一化、已归位」的**精确信号**。下游插件（如 **Cards Wrangler**）
+`{ path, report }`），这是“这篇输入已归一化、已归位”的**精确信号**。下游插件（如 **Cards Wrangler**）
 监听它，就能在输入**真正就绪后**再按 `keywords` 生长概念卡，而不必去抢 Obsidian 原生的 `create` 事件
-（那个在后处理之前就触发了）。CIMPO 里「输入只带 `keywords`、连接交给概念一侧」正是靠这条链落地。
+（那个在后处理之前就触发了）。CIMPO 里“输入只带 `keywords`、连接交给概念一侧”正是靠这条链落地。
 跨插件契约与路线图见仓库 `docs/collaboration.md`。
 
 ---
@@ -300,11 +300,11 @@ tag:scholar => /30 - Metadata/Scholars
 
 ## 10. 排错
 
-- **落入笔记没反应**：确认「处理模式」是自动、笔记在监听文件夹内、且是 `.md`；确认至少有一个脚本启用。
-- **脚本没生效/报错**：命令面板跑 `Reload scripts`，看是否弹「N 个脚本，X 个出错」；出错详情在开发者控制台（`Cmd+Opt+I`）`[Inputs Bell]` 前缀。
+- **落入笔记没反应**：确认“处理模式”是自动、笔记在监听文件夹内、且是 `.md`；确认至少有一个脚本启用。
+- **脚本没生效/报错**：命令面板跑 `Reload scripts`，看是否弹“N 个脚本，X 个出错”；出错详情在开发者控制台（`Cmd+Opt+I`）`[Inputs Bell]` 前缀。
 - **豆瓣图还裂**：多半是那张图豆瓣已删（404），本地化救不了；或 Referer 规则被改坏。
-- **verify-zotero 连不上**：Zotero 要开着并允许本机通信；用设置里「测试连接」验证。
-- **move 没挪对**：检查「归类规则」里条件是否命中（`has/url/tag` 三种），规则是**第一个命中生效**。
+- **verify-zotero 连不上**：Zotero 要开着并允许本机通信；用设置里“测试连接”验证。
+- **move 没挪对**：检查“归类规则”里条件是否命中（`has/url/tag` 三种），规则是**第一个命中生效**。
 
 
 ---

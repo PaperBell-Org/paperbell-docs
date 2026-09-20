@@ -111,7 +111,7 @@ order: 3
 > [!success] 🟢 已实现
 > 在 `30 - Metadata/Grants/` 建一张带 `grant` 标签的笔记，用 `project: "[[项目主页]]"` 指回它资助的项目。
 >
-> 项目卡片上的「**资助 M**」是**数出来的**——项目 frontmatter 里没有 `grants` 字段，你不用两头记账。
+> 项目卡片上的「**资助 N**」是**数出来的**——项目 frontmatter 里没有 `grants` 字段，你不用两头记账。
 
 > [!success] 🟢 已实现：交付物与里程碑
 > - **交付物**：`50 - Outputs/` 里的长文用 `project: <acronym>` 指回 → 卡片上「交付物 N」自动数出来

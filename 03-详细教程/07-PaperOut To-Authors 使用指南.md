@@ -36,7 +36,7 @@ order: 7
 | ✉️ **Response Letter** | 审稿回复信 | 支持手稿引用同步 |
 | 📮 **Cover Letter** | 投稿信 | 单文件，moderncv 信头 |
 
-> [!info] 还会附带这些"开箱即用"文件
+> [!info] 还会附带这些“开箱即用”文件
 > `metadata.json`（出版元数据）· `results.json`（编译期占位符）· `references.bib` · `README.md`，
 > 以及**内联示例图/表**（开箱即可编译）。
 >
